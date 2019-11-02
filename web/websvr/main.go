@@ -39,6 +39,9 @@ func (p *program) Start() error {
 	flagSet := webFlagSet(opts)
 	flagSet.Parse(os.Args[1:])
 	os.Args = os.Args[:1]
+	if flagSet.Lookup("version").Value.(flag.Getter).Get().(bool) {
+		os.Exit(0)
+	}
 	var cfg config
 	configFile := flagSet.Lookup("configFile").Value.String()
 	if configFile != ""{
@@ -79,8 +82,8 @@ func parseConfigFile(configFile string, result *map[string]interface{}) {
 
 func webFlagSet(opt *web.Option) *flag.FlagSet {
 	flagSet := flag.NewFlagSet("web", flag.ExitOnError)
-	flag.Bool("version", false, "")
-	flag.String("configFile", opt.ConfigFile, "")
+	flag.Bool("version", false, "http sever version!")
+	flag.String("configFile", opt.ConfigFile, "http sever config file!")
 	flag.String("HTTPHost", opt.HTTPHost, "http sever host!")
 	flag.String("HTTPPort", opt.HTTPPort, "http sever port!")
 	return flagSet
