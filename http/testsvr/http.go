@@ -1,15 +1,15 @@
 package testsvr
 
 import (
-	"byrpc/sapi/putil/log"
 	"context"
 	"fmt"
 	"github.com/gorilla/mux"
 	"github.com/pkg/errors"
-	"match/internal/app/testsvr/util"
+	plog "log"
 	"net"
 	"net/http"
 	"net/http/pprof"
+	"practice/http/util"
 	"strings"
 )
 
@@ -25,12 +25,9 @@ type HTTPSever struct {
 func (s *HTTPSever) Start(exitChan <-chan struct{}) {
 
 	s.server = &http.Server{Handler: removeTrailingSlash(s.router)}
-	fmt.Println("hi")
 	s.waitGroup.Wrap(func() {
 		s.server.Serve(s.listener)
 	})
-	fmt.Println("success")
-	plog.Debugf("Http sever start success!")
 	// Todo: 监听信号，到收到时停止web服务
 	for {
 		select {
@@ -50,7 +47,6 @@ func (s *HTTPSever) Stop() {
 		plog.Fatalf("Http sever shut down fail err: %v", err)
 	}
 	//s.waitGroup.Wait()
-	plog.Debugf("Http sever shut down success!")
 	return
 }
 func (s *HTTPSever) index(w http.ResponseWriter, r *http.Request) {

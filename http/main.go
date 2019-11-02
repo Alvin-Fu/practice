@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"net"
-	"practice/httptice/http/sever"
+	"practice/http/sever"
 	"sync"
 )
 
