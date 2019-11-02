@@ -10,7 +10,6 @@ import (
 	"net/http"
 	"net/http/pprof"
 	"practice/http/util"
-	"strings"
 )
 
 type HTTPSever struct {
@@ -89,7 +88,9 @@ func removeTrailingSlash(next http.Handler) http.Handler {
 			r.URL.Path = "/"
 			goto handle
 		}
-		r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
+		//fmt.Println(r.URL.Path)
+		////r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
+		//fmt.Println(r.URL.Path)
 	handle:
 		next.ServeHTTP(w, r)
 	})
