@@ -82,9 +82,9 @@ func parseConfigFile(configFile string, result *map[string]interface{}) {
 
 func webFlagSet(opt *web.Option) *flag.FlagSet {
 	flagSet := flag.NewFlagSet("web", flag.ExitOnError)
-	flag.Bool("version", false, "http sever version!")
-	flag.String("configFile", opt.ConfigFile, "http sever config file!")
-	flag.String("HTTPHost", opt.HTTPHost, "http sever host!")
-	flag.String("HTTPPort", opt.HTTPPort, "http sever port!")
+	flagSet.Bool("version", false, "http sever version!")
+	flagSet.String("configFile", opt.ConfigFile, "http sever config file!")
+	flagSet.String("HTTPHost", opt.HTTPHost, "http sever host!")
+	flagSet.String("HTTPPort", opt.HTTPPort, "http sever port!")
 	return flagSet
 }
