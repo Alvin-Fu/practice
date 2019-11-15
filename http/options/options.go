@@ -1,11 +1,11 @@
-package web
+package options
 
 import (
 	"crypto/md5"
 	"hash/crc32"
 	"io"
+	"log"
 	"os"
-	"rpcx/log"
 )
 
 type Option struct {
@@ -26,7 +26,7 @@ func NewOption() *Option {
 	defaultID := int64(crc32.ChecksumIEEE(h.Sum(nil)) % 1024)
 	return &Option{
 		ID:         defaultID,
-		ConfigFile: "conf/app.conf",
+		ConfigFile: "../conf/app.conf",
 		HTTPHost:   "",
 		HTTPPort:   "8080",
 		APPName:    "",
