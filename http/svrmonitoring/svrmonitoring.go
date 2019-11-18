@@ -1,9 +1,12 @@
 package svrmonitoring
 
 import (
+	"Codis/pkg/utils/errors"
 	"context"
 	"fmt"
 	"github.com/gorilla/mux"
+	"net/http/pprof"
+
 	//_ "github.com/mkevac/debugcharts"
 	plog "log"
 	"net"
@@ -22,7 +25,7 @@ type HTTPSever struct {
 
 func (s *HTTPSever) Start(exitChan <-chan struct{}) {
 
-	s.server = &http.Server{Handler: removeTrailingSlash( /*s.router*/ )}
+	s.server = &http.Server{Handler: removeTrailingSlash( s.router )}
 	//s.waitGroup.Wrap(func() {
 	s.server.Serve(s.listener)
 	//})
@@ -54,42 +57,42 @@ func (s *HTTPSever) index(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *HTTPSever) RegRouter() error {
-	//if s.router == nil {
-	//	plog.Fatalf("Invalid router!")
-	//	return errors.Errorf("Invalid router!")
-	//}
-	//s.router.HandleFunc("/", s.index)
-	//s.router.HandleFunc("/debug/pprof/", pprof.Index)
-	//s.router.HandleFunc("/debug/pprof/cmdline", pprof.Cmdline)
-	//s.router.HandleFunc("/debug/pprof/profile", pprof.Profile)
-	//s.router.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
-	//s.router.HandleFunc("/debug/pprof/trace", pprof.Trace)
-	//s.router.HandleFunc("/debug/pprof/{name:[a-z]+}", pprofHelper)
+	if s.router == nil {
+		plog.Fatalf("Invalid router!")
+		return errors.Errorf("Invalid router!")
+	}
+	s.router.HandleFunc("/", s.index)
+	s.router.HandleFunc("/debug/pprof/", pprof.Index)
+	s.router.HandleFunc("/debug/pprof/cmdline", pprof.Cmdline)
+	s.router.HandleFunc("/debug/pprof/profile", pprof.Profile)
+	s.router.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
+	s.router.HandleFunc("/debug/pprof/trace", pprof.Trace)
+	s.router.HandleFunc("/debug/pprof/{name:[a-z]+}", pprofHelper)
 	//s.router.HandleFunc("/debug/charts")
 	return nil
 }
 
 func NewHTTPSever(listener net.Listener) *HTTPSever {
-	svr := &HTTPSever{listener: listener /*router: mux.NewRouter()*/}
-	//if err := svr.RegRouter(); err != nil {
-	//	plog.Fatalf("Router register fail err: %v", err)
-	//	return nil
-	//}
+	svr := &HTTPSever{listener: listener ,router: mux.NewRouter()}
+	if err := svr.RegRouter(); err != nil {
+		plog.Fatalf("Router register fail err: %v", err)
+		return nil
+	}
 	return svr
 }
 
-func removeTrailingSlash( /*next http.Handler*/ ) http.Handler {
+func removeTrailingSlash( next http.Handler ) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		//	if len(r.URL.Path) == 0 || r.URL.Path == "/" {
-		//		r.URL.Path = "/"
-		//		goto handle
-		//	}
-		//	//r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
-		//handle:
-		//	next.ServeHTTP(w, r)
+			if len(r.URL.Path) == 0 || r.URL.Path == "/" {
+				r.URL.Path = "/"
+				goto handle
+			}
+			//r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
+		handle:
+			next.ServeHTTP(w, r)
 	})
 }
 func pprofHelper(w http.ResponseWriter, r *http.Request) {
-	//name := mux.Vars(r)["name"]
-	//pprof.Handler(name).ServeHTTP(w, r)
+	name := mux.Vars(r)["name"]
+	pprof.Handler(name).ServeHTTP(w, r)
 }
