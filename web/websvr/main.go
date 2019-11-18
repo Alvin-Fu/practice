@@ -14,7 +14,9 @@ import (
 	"rpcx/log"
 )
 
+// 定义一个保存配置的类型
 type config map[string]interface{}
+// 服务启动结构体
 type program struct {
 	wg   uitl.WaitGroupWrapper
 	quit chan struct{}
@@ -26,7 +28,7 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
+// 使用svc的方式启动服务
 func (p *program) Init(env svc.Environment) error {
 	if  env.IsWindowsService() {
 		dir := filepath.Dir(os.Args[0])
@@ -43,11 +45,14 @@ func (p *program) Start() error {
 		os.Exit(0)
 	}
 	var cfg config
+	// 获取命令行参数中的配置文件
 	configFile := flagSet.Lookup("configFile").Value.String()
 	if configFile != ""{
 		parseConfigFile(configFile, (*map[string]interface{})(&cfg))
 	}
+	// 在使用resolve的时候需要在opts中写标签，可以查看resolve的函数说明
 	options.Resolve(opts, flagSet, cfg)
+	// 启动框架的http服务
 	p.wg.Wrap(func() {
 		beego.Run(opts.HTTPHost + ":" +opts.HTTPPort)
 	})
@@ -57,6 +62,9 @@ func (p *program) Stop() error {
 	return nil
 }
 
+/* parseConfigFile  获取配置中的参数
+ *
+ */
 func parseConfigFile(configFile string, result *map[string]interface{}) {
 	config, err := beegoConfig.NewConfig("ini", configFile)
 	if err != nil{
@@ -80,6 +88,9 @@ func parseConfigFile(configFile string, result *map[string]interface{}) {
 
 }
 
+/* webFlagSet  设置命令行参数
+ *
+ */
 func webFlagSet(opt *web.Option) *flag.FlagSet {
 	flagSet := flag.NewFlagSet("web", flag.ExitOnError)
 	flagSet.Bool("version", false, "http sever version!")

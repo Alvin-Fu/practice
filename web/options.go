@@ -8,12 +8,13 @@ import (
 	"rpcx/log"
 )
 
+
 type Option struct {
 	ID         int64
-	ConfigFile string
-	HTTPHost   string
-	HTTPPort   string
-	APPName    string
+	ConfigFile string   `flag:"configFile"`
+	HTTPHost   string	`flag:"HTTPHost" cfg:"HTTPHost"`
+	HTTPPort   string	`flag:"HTTPPort" cfg:"HTTPPort"`
+	APPName    string	`cfg:"APPName"`
 }
 
 func NewOption() *Option {
