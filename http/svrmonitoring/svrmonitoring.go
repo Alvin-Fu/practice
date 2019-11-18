@@ -1,13 +1,11 @@
 package svrmonitoring
 
 import (
-	"Codis/pkg/utils/errors"
+
 	"context"
 	"fmt"
 	"github.com/gorilla/mux"
 	"net/http/pprof"
-
-	//_ "github.com/mkevac/debugcharts"
 	plog "log"
 	"net"
 	"net/http"
@@ -59,7 +57,7 @@ func (s *HTTPSever) index(w http.ResponseWriter, r *http.Request) {
 func (s *HTTPSever) RegRouter() error {
 	if s.router == nil {
 		plog.Fatalf("Invalid router!")
-		return errors.Errorf("Invalid router!")
+		return fmt.Errorf("Invalid router!")
 	}
 	s.router.HandleFunc("/", s.index)
 	s.router.HandleFunc("/debug/pprof/", pprof.Index)
