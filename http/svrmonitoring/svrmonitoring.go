@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/gorilla/mux"
-	_ "github.com/mkevac/debugcharts"
+	//_ "github.com/mkevac/debugcharts"
 	plog "log"
 	"net"
 	"net/http"
