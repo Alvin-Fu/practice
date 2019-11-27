@@ -27,6 +27,10 @@ func (at *ArrayT) Del(b int) {
 }
 
 func main() {
+	var t *ArrayT
+	if t == nil {
+		fmt.Println("hello")
+	}
 	for j := 0; j < 10000000; j++ {
 		var arr = make([]int, 0)
 		for i := 0; i < 10; i++ {
