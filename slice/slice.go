@@ -32,7 +32,7 @@ func main() {
 		fmt.Println("hello")
 	}
 	for j := 0; j < 10000000; j++ {
-		var arr = make([]int, 0)
+		var arr= make([]int, 0)
 		for i := 0; i < 10; i++ {
 			arr = append(arr, i+1)
 		}
@@ -71,12 +71,5 @@ func main() {
 			}
 			wg.Done()
 		}()
-
-		wg.Wait()
-		arrayT.Del(del)
-		if len(arrayT.array) != 7 {
-			fmt.Println(arrayT.array)
-		}
 	}
-
 }
