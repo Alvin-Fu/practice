@@ -1,15 +1,15 @@
 package svrmonitoring
 
 import (
-
 	"context"
 	"fmt"
 	"github.com/gorilla/mux"
-	"net/http/pprof"
 	plog "log"
 	"net"
 	"net/http"
+	"net/http/pprof"
 	_ "net/http/pprof"
+	"time"
 )
 
 type HTTPSever struct {
@@ -22,8 +22,13 @@ type HTTPSever struct {
 }
 
 func (s *HTTPSever) Start(exitChan <-chan struct{}) {
+	for i := 0; i < 1000000; i++ {
+		go func() {
+			time.Sleep(time.Second * 10)
+		}()
+	}
 
-	s.server = &http.Server{Handler: removeTrailingSlash( s.router )}
+	s.server = &http.Server{Handler: removeTrailingSlash(s.router)}
 	//s.waitGroup.Wrap(func() {
 	s.server.Serve(s.listener)
 	//})
@@ -71,7 +76,7 @@ func (s *HTTPSever) RegRouter() error {
 }
 
 func NewHTTPSever(listener net.Listener) *HTTPSever {
-	svr := &HTTPSever{listener: listener ,router: mux.NewRouter()}
+	svr := &HTTPSever{listener: listener, router: mux.NewRouter()}
 	if err := svr.RegRouter(); err != nil {
 		plog.Fatalf("Router register fail err: %v", err)
 		return nil
@@ -79,15 +84,15 @@ func NewHTTPSever(listener net.Listener) *HTTPSever {
 	return svr
 }
 
-func removeTrailingSlash( next http.Handler ) http.Handler {
+func removeTrailingSlash(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			if len(r.URL.Path) == 0 || r.URL.Path == "/" {
-				r.URL.Path = "/"
-				goto handle
-			}
-			//r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
-		handle:
-			next.ServeHTTP(w, r)
+		if len(r.URL.Path) == 0 || r.URL.Path == "/" {
+			r.URL.Path = "/"
+			goto handle
+		}
+		//r.URL.Path = strings.TrimPrefix(r.URL.Path, "/")
+	handle:
+		next.ServeHTTP(w, r)
 	})
 }
 func pprofHelper(w http.ResponseWriter, r *http.Request) {

@@ -9,8 +9,8 @@ import (
 	"net"
 	"os"
 	"path/filepath"
+	options2 "practice/http/options"
 	"practice/http/svrmonitoring"
-	"practice/web"
 	"practice/web/uitl"
 )
 
@@ -35,7 +35,7 @@ func (p *program) Init(env svc.Environment) error {
 	return nil
 }
 func (p *program) Start() error {
-	opts := web.NewOption()
+	opts := options2.NewOption()
 	flagSet := webFlagSet(opts)
 	flagSet.Parse(os.Args[1:])
 	os.Args = os.Args[:1]
@@ -87,7 +87,7 @@ func parseConfigFile(configFile string, result *map[string]interface{}) {
 
 }
 
-func webFlagSet(opt *web.Option) *flag.FlagSet {
+func webFlagSet(opt *options2.Option) *flag.FlagSet {
 	flagSet := flag.NewFlagSet("web", flag.ExitOnError)
 	flagSet.Bool("version", false, "http sever version!")
 	flagSet.String("configFile", opt.ConfigFile, "http sever config file!")
