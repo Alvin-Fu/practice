@@ -44,10 +44,10 @@ func (p *program) Start() error {
 	}
 	ExitChan := make(<-chan struct{})
 	var cfg config
-	configFile := flagSet.Lookup("configFile").Value.String()
-	if configFile != "" {
-		parseConfigFile(configFile, (*map[string]interface{})(&cfg))
-	}
+	//configFile := flagSet.Lookup("configFile").Value.String()
+	//if configFile != "" {
+	//	parseConfigFile(configFile, (*map[string]interface{})(&cfg))
+	//}
 	options.Resolve(opts, flagSet, cfg)
 	tcpListener, err := net.Listen("tcp", opts.HTTPHost+":"+opts.HTTPPort)
 	if err != nil {

@@ -25,10 +25,10 @@ func NewOption() *Option {
 	io.WriteString(h, hostName)
 	defaultID := int64(crc32.ChecksumIEEE(h.Sum(nil)) % 1024)
 	return &Option{
-		ID:         defaultID,
-		ConfigFile: "../conf/app.conf",
-		HTTPHost:   "",
-		HTTPPort:   "8080",
-		APPName:    "",
+		ID: defaultID,
+		//ConfigFile: "../conf/app.conf",
+		HTTPHost: "",
+		HTTPPort: "8080",
+		APPName:  "",
 	}
 }

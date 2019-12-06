@@ -22,12 +22,6 @@ type HTTPSever struct {
 }
 
 func (s *HTTPSever) Start(exitChan <-chan struct{}) {
-	for i := 0; i < 1000000; i++ {
-		go func() {
-			time.Sleep(time.Second * 10)
-		}()
-	}
-
 	s.server = &http.Server{Handler: removeTrailingSlash(s.router)}
 	//s.waitGroup.Wrap(func() {
 	s.server.Serve(s.listener)
@@ -56,6 +50,12 @@ func (s *HTTPSever) Stop() {
 	return
 }
 func (s *HTTPSever) index(w http.ResponseWriter, r *http.Request) {
+	for i := 0; i < 1000000; i++ {
+		go func() {
+			time.Sleep(time.Second * 10)
+		}()
+	}
+
 	fmt.Fprintf(w, "%s\n", "hello")
 }
 
