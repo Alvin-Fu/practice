@@ -13,3 +13,6 @@
 [submodule "vendor/github.com/gorilla/websocket"]
 	path = vendor/github.com/gorilla/websocket
 	url = https://github.com/gorilla/websocket
+[submodule "vendor/github.com/micro/go-micro"]
+	path = vendor/github.com/micro/go-micro
+	url = https://github.com/micro/go-micro
