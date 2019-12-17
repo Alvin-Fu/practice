@@ -40,8 +40,7 @@ func TestReaderTar()error{
 			log.Fatalf("reader next err: %v", err)
 			return err
 		}
-		fmt.Println(h)
-		h.FileInfo()
+		fmt.Printf("heard: %+v",h)
 	}
 	return nil
 }
