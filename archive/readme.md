@@ -1,18 +1,6 @@
-服务端证书生成
-生成私钥
-openssl genrsa -out server.key 2048
-生成证书
-openssl req -new -x509 -key server.key -out server.pem -days 3650
-
-或者使用
-go run $GOROOT/src/crypto/tls/generste_cert.go -host localhost
-
-
-客户端证书生成
-生成私钥
-openssl genrsa -out client.key 2048
-生成证书
-openssl req -new -x509 -key client.key -out client.pem -days 3650
+练习使用go的tar和zip包
+tar是对tar归档文件的读写(主要是Linux)，tar只归档并不压缩
+zip是对zip归档文件的读写(主要是windows)，压缩率不高
 
 
 
