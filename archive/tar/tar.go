@@ -1,18 +1,15 @@
-package main
+package tar
 
 import (
 	"archive/tar"
 	"fmt"
-	"github.com/hashicorp/consul/agent/structs"
 	"io"
 	"log"
 	"os"
 )
 
-func main() {
-	//TestFileInfoHeader()
-	//Unpack()
-	Pack()
+func init() {
+	log.SetFlags(log.Lshortfile | log.LstdFlags)
 }
 
 // 测试打开tar包

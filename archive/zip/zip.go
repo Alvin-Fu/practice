@@ -1,8 +1,8 @@
-package main
+package zip
 
 import (
+	"Codis/pkg/utils/errors"
 	"archive/zip"
-	"github.com/pkg/errors"
 	"io"
 	"io/ioutil"
 	"log"
@@ -10,13 +10,12 @@ import (
 	"strings"
 )
 
-func main() {
+
+
+func init() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
-	//UncompressFile("readme.md", "readme.zip")
-	//UncompressDir("../../rpcx/", "rpc.zip")
-	Compress("rpc.zip", "rpcx/")
 }
-func UncompressFile(name string, zipName string) error {
+func UnCompressFile(name string, zipName string) error {
 	zipFile, err := os.Create(zipName)
 	if err != nil {
 		log.Fatalf("create file err: %v", err)
@@ -47,7 +46,7 @@ func UncompressFile(name string, zipName string) error {
 	return nil
 }
 
-func UncompressDir(path string, zipName string) error {
+func UnCompressDir(path string, zipName string) error {
 	if path == "" {
 		return errors.Errorf("path err")
 	}
@@ -69,6 +68,7 @@ func UncompressDir(path string, zipName string) error {
 	defer writer.Close()
 	return WriteData(writer, files, path, "rpcx/")
 }
+
 
 func WriteData(writer *zip.Writer, files []os.FileInfo, path string, dirName string) error {
 	for _, f := range files {
@@ -121,6 +121,7 @@ func Compress(zipName string, dir string) error {
 	}
 	defer readCloser.Close()
 	for _, file := range readCloser.File {
+		// 对目录和文件进行区分
 		if isContinue(dir + file.Name) {
 			continue
 		}
