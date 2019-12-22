@@ -1,6 +1,7 @@
 package zip
 
 import (
+	"fmt"
 	"github.com/pkg/errors"
 	"archive/zip"
 	"io"
@@ -122,7 +123,7 @@ func Compress(zipName string, dir string) error {
 	defer readCloser.Close()
 	for _, file := range readCloser.File {
 		// 对目录和文件进行区分
-		if isContinue(dir + file.Name) {
+		if IsContinue(dir + file.Name) {
 			continue
 		}
 		r, err := file.Open()
@@ -146,18 +147,22 @@ func Compress(zipName string, dir string) error {
 	return nil
 }
 
-func isContinue(str string) bool {
-	bytes := []byte(str)
-	if bytes[len(bytes)-1] == '/' {
-		err := os.MkdirAll(str, 754)
+func IsContinue(str string) bool {
+	last := len(str)
+	if os.IsPathSeparator(str[last - 1]){
+		err := os.MkdirAll(str, 654)
 		if err != nil {
 			log.Println(err)
 		}
 		return true
 	}
-	n := strings.LastIndex(str, "/")
-	str = string(bytes[:n]) + "/"
-	err := os.MkdirAll(str, 754)
+	bytes := []byte(str)
+	n := strings.LastIndex(str, string(os.PathSeparator))
+	if n < 0 {
+		n = strings.LastIndex(str, "/")
+	}
+	str = string(bytes[:n]) + string(os.PathSeparator)
+	err := os.MkdirAll(str, 654)
 	if err != nil {
 		log.Println(err)
 	}

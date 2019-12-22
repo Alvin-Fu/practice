@@ -4,8 +4,14 @@ import "testing"
 
 
 func TestUnCompressDir(t *testing.T) {
-	UnCompressDir("../../../rpcx/", "rpcx.zip")
+	err := UnCompressDir("../../../rpcx/", "rpcx.zip")
+	if err != nil {
+		t.Fatalf("uncompress err: %v", err)
+	}
 }
 func TestCompress(t *testing.T) {
-	Compress("rpcx.zip", "rpcx/")
+	err := Compress("rpcx.zip", "rpcx/")
+	if err != nil {
+		t.Fatalf("compress err: %v", err)
+	}
 }
