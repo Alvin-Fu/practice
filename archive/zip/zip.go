@@ -1,7 +1,7 @@
 package zip
 
 import (
-	"Codis/pkg/utils/errors"
+	"github.com/pkg/errors"
 	"archive/zip"
 	"io"
 	"io/ioutil"
