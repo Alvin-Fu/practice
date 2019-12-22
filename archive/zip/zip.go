@@ -1,7 +1,6 @@
 package zip
 
 import (
-	"fmt"
 	"github.com/pkg/errors"
 	"archive/zip"
 	"io"
