@@ -1,63 +1,33 @@
 package zip
 
 import (
-	"github.com/pkg/errors"
 	"archive/zip"
+	"github.com/pkg/errors"
 	"io"
 	"io/ioutil"
 	"log"
 	"os"
+	"practice/archive/util"
 	"strings"
 )
-
-
 
 func init() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 }
-func UnCompressFile(name string, zipName string) error {
-	zipFile, err := os.Create(zipName)
-	if err != nil {
-		log.Fatalf("create file err: %v", err)
-		return err
-	}
-	defer zipFile.Close()
-	write := zip.NewWriter(zipFile)
-	defer write.Close()
 
-	fileInfo, err := os.Stat(name)
-	if err != nil {
-		log.Fatalf("file get info err: %v", err)
-		return err
-	}
-	// 生成目标文件的header即描述
-	fHeader, err := zip.FileInfoHeader(fileInfo)
-	if err != nil {
-		log.Fatalf("get header err: %v", err)
-		return err
-	}
-	w, err := write.CreateHeader(fHeader)
-	if err != nil {
-		log.Fatalf("create header err: %v", err)
-		return err
-	}
-	of, err := os.Open(name)
-	io.Copy(w, of)
-	return nil
-}
-
-func UnCompressDir(path string, zipName string) error {
-	if path == "" {
-		return errors.Errorf("path err")
+func UnCompress(name string, zipName string, dirName string) error {
+	if name == "" {
+		return errors.Errorf("name err")
 	}
 	if zipName == "" {
 		return errors.Errorf("zip file name err")
 	}
-	files, err := ioutil.ReadDir(path)
+	files, err := FileInfo(name)
 	if err != nil {
-		log.Fatalf("read the path err: %v", err)
+		log.Fatalf("get file info err: %v", err)
 		return err
 	}
+	path := util.ParentDir(name)
 	zFile, err := os.Create(zipName)
 	if err != nil {
 		log.Fatalf("create zip file err: %v", err)
@@ -66,9 +36,8 @@ func UnCompressDir(path string, zipName string) error {
 	defer zFile.Close()
 	writer := zip.NewWriter(zFile)
 	defer writer.Close()
-	return WriteData(writer, files, path, "rpcx/")
+	return WriteData(writer, files, path, dirName)
 }
-
 
 func WriteData(writer *zip.Writer, files []os.FileInfo, path string, dirName string) error {
 	for _, f := range files {
@@ -122,7 +91,7 @@ func Compress(zipName string, dir string) error {
 	defer readCloser.Close()
 	for _, file := range readCloser.File {
 		// 对目录和文件进行区分
-		if IsContinue(dir + file.Name) {
+		if util.IsContinue(dir + file.Name) {
 			continue
 		}
 		r, err := file.Open()
@@ -146,26 +115,28 @@ func Compress(zipName string, dir string) error {
 	return nil
 }
 
-func IsContinue(str string) bool {
-	last := len(str)
-	if os.IsPathSeparator(str[last - 1]){
-		err := os.MkdirAll(str, 654)
-		if err != nil {
-			log.Println(err)
-		}
-		return true
+func FileInfo(name string) ([]os.FileInfo, error) {
+	if len(name) <= 0 {
+		log.Fatalf("name err")
+		return nil, errors.Errorf("name err")
 	}
-	bytes := []byte(str)
-	n := strings.LastIndex(str, string(os.PathSeparator))
-	if n < 0 {
-		n = strings.LastIndex(str, "/")
-	}
-	str = string(bytes[:n]) + string(os.PathSeparator)
-	err := os.MkdirAll(str, 654)
+	fi, err := os.Stat(name)
 	if err != nil {
-		log.Println(err)
+		log.Fatalf("get fileInfo err: %v", err)
+		return nil, err
 	}
-	return false
+	files := make([]os.FileInfo, 0)
+	if fi.IsDir() {
+		f, err := ioutil.ReadDir(name)
+		if err != nil {
+			log.Fatalf("read dir err: %v", err)
+			return nil, err
+		}
+		files = append(files, f...)
+	} else {
+		files = append(files, fi)
+	}
+	return files, nil
 }
 
 func currentPath(prentDir string, dir string) string {

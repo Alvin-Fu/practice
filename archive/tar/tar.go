@@ -7,7 +7,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"practice/archive/zip"
+	"practice/archive/util"
 )
 
 func init() {
@@ -23,12 +23,12 @@ func Unpack(name string) error {
 	}
 	defer file.Close()
 	read := tar.NewReader(file)
-	for header, err := read.Next(); err != io.EOF; header, err = read.Next(){
+	for header, err := read.Next(); err != io.EOF; header, err = read.Next() {
 		if err != nil {
 			log.Fatalf("read next err: %v", err)
 			return err
 		}
-		if zip.IsContinue(header.Name){
+		if util.IsContinue(header.Name) {
 			continue
 		}
 		f, err := os.Create(header.Name)
@@ -44,17 +44,8 @@ func Unpack(name string) error {
 		}
 	}
 
-
 	return nil
 }
-
-func unpackDir(name string, fi os.FileInfo)error{
-	if fi.IsDir(){
-		unpackDir(fi.Name(), fi)
-	}
-	return nil
-}
-func unpackFile(){}
 
 // 将一个文件打包
 func Pack(name string, packName string) error {
@@ -73,18 +64,18 @@ func Pack(name string, packName string) error {
 	}
 	basePath := filepath.Dir(filepath.Clean(name))
 	relativePath := filepath.Base(filepath.Clean(name))
-	if fileInfo.IsDir(){
+	if fileInfo.IsDir() {
 		return packDir(basePath, relativePath, write, fileInfo)
 	} else {
 		return packFile(basePath, relativePath, write, fileInfo)
 	}
 	return nil
 }
-func packDir(basePath string, relativePath string, tw *tar.Writer, fi os.FileInfo)error{
-	if !isPathSeparator(basePath){
+func packDir(basePath string, relativePath string, tw *tar.Writer, fi os.FileInfo) error {
+	if !isPathSeparator(basePath) {
 		basePath += string(os.PathSeparator)
 	}
-	if !isPathSeparator(relativePath){
+	if !isPathSeparator(relativePath) {
 		relativePath += string(os.PathSeparator)
 	}
 	path := basePath + relativePath
@@ -93,21 +84,21 @@ func packDir(basePath string, relativePath string, tw *tar.Writer, fi os.FileInf
 		log.Fatalf("read dir err: %v", err)
 		return err
 	}
-	for _, fi := range fis{
-		if fi.IsDir(){
-			packDir(basePath, relativePath + fi.Name(), tw, fi)
+	for _, fi := range fis {
+		if fi.IsDir() {
+			packDir(basePath, relativePath+fi.Name(), tw, fi)
 		} else {
-			packFile(basePath, relativePath + fi.Name(), tw, fi)
+			packFile(basePath, relativePath+fi.Name(), tw, fi)
 		}
 	}
-	if len(relativePath) > 0{
-		h, err :=tar.FileInfoHeader(fi, "")
+	if len(relativePath) > 0 {
+		h, err := tar.FileInfoHeader(fi, "")
 		if err != nil {
 			log.Fatalf("get header err: %v", err)
 			return err
 		}
 		h.Name = relativePath
-		if err := tw.WriteHeader(h); err != nil{
+		if err := tw.WriteHeader(h); err != nil {
 			log.Fatalf("write header err: %v", err)
 			return err
 		}
@@ -115,7 +106,7 @@ func packDir(basePath string, relativePath string, tw *tar.Writer, fi os.FileInf
 	return nil
 }
 
-func packFile(basePath string, relativePath string, tw *tar.Writer, fi os.FileInfo)error{
+func packFile(basePath string, relativePath string, tw *tar.Writer, fi os.FileInfo) error {
 	path := basePath + relativePath
 	header, err := tar.FileInfoHeader(fi, "")
 	if err != nil {
@@ -123,7 +114,7 @@ func packFile(basePath string, relativePath string, tw *tar.Writer, fi os.FileIn
 		return err
 	}
 	header.Name = relativePath
-	if err := tw.WriteHeader(header); err != nil{
+	if err := tw.WriteHeader(header); err != nil {
 		log.Fatalf("write header err: %v", err)
 		return err
 	}
@@ -140,9 +131,9 @@ func packFile(basePath string, relativePath string, tw *tar.Writer, fi os.FileIn
 	return nil
 }
 
-func isPathSeparator(path string)bool{
+func isPathSeparator(path string) bool {
 	last := len(path) - 1
-	if path[last] != os.PathSeparator{
+	if path[last] != os.PathSeparator {
 		return false
 	}
 	return true
