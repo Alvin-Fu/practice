@@ -1,0 +1,9 @@
+#!/bin/bash
+redis-server > /dev/null &
+psg -f redis-server |awk '{print $2}'|grep -Eo '[0-9]+'
+sleep 5s
+psg -f redis-server |awk '{print $2}'|grep -Eo '[0-9]+'|xargs kill -9
+
+
+redis-server > /dev/null &
+psg -f redis-server |awk '{print $2}'|grep -Eo '[0-9]+'
