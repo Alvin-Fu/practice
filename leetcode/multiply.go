@@ -3,7 +3,8 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println(Multiply("99", "99"))
+	fmt.Println(Multiply("999", "999"))
+
 }
 func Multiply(num1, num2 string) string {
 	rue := ""
@@ -17,23 +18,28 @@ func Multiply(num1, num2 string) string {
 		return "0"
 	}
 	len1, len2 := len(num1), len(num2)
-	//bytes1, bytes2 := []byte(num1), []byte(num2)
+	tmp := make(map[int]int)
 	bytes := make([]byte, len1+len2)
-	for i := 0; i < len1; i++ {
-		for j := 0; j < len2; j++ {
-			num := byteToInt(num1[i]) * byteToInt(num2[j])
-			n, m := getBitsTen(num)
-			if m != 0 {
-				t := byte(byteToInt(bytes[i+j]) + m)
-				n1, m1 := getBitsTen(t)
-
+	//nums := make([]int, len1+len2)
+	for i := len1; i > 0; i-- {
+		for j := len2; j > 0; j-- {
+			index := i + j - 1
+			if index <= 0 {
+				index = 0
 			}
-			bytes[i+j+1] = byte(byteToInt(bytes[i+j+1]) + m)
+			num := byteToInt(num1[i-1]) * byteToInt(num2[j-1])
+			tmp[index] += num
+			//tmp[index-1] += num / 10
 		}
 	}
-	fmt.Println(bytes)
+	fmt.Println(tmp)
+	for i := len1 + len2 - 1; i > 0; i-- {
+		tmp[i-1] += tmp[i] / 10
+		tmp[i] = tmp[i] % 10
+	}
 	rue = string(bytes)
 	fmt.Println(string(bytes[:]))
+	fmt.Println(tmp)
 	return rue
 }
 
