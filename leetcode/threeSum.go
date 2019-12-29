@@ -1,15 +1,7 @@
 package main
 
-import (
-	"fmt"
-	"sort"
-	"strconv"
-)
 
-func main(){
-	fmt.Println(threeSum([]int{0,0,0,0,1}))
-}
-func threeSum(nums []int) [][]int {
+func ThreeSum(nums []int) [][]int {
 	if len(nums) < 3{
 		return nil
 	}
