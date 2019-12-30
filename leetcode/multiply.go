@@ -1,13 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 func main() {
-	fmt.Println(Multiply("999", "999"))
+	fmt.Println(Multiply("9999999", "9900"))
 
 }
 func Multiply(num1, num2 string) string {
-	rue := ""
 	if num1 == "" || num1 == "1" {
 		return num2
 	}
@@ -19,8 +21,6 @@ func Multiply(num1, num2 string) string {
 	}
 	len1, len2 := len(num1), len(num2)
 	tmp := make(map[int]int)
-	bytes := make([]byte, len1+len2)
-	//nums := make([]int, len1+len2)
 	for i := len1; i > 0; i-- {
 		for j := len2; j > 0; j-- {
 			index := i + j - 1
@@ -29,18 +29,23 @@ func Multiply(num1, num2 string) string {
 			}
 			num := byteToInt(num1[i-1]) * byteToInt(num2[j-1])
 			tmp[index] += num
-			//tmp[index-1] += num / 10
 		}
 	}
-	fmt.Println(tmp)
+	strs := make([]string, len1+len2)
+	str := ""
 	for i := len1 + len2 - 1; i > 0; i-- {
-		tmp[i-1] += tmp[i] / 10
-		tmp[i] = tmp[i] % 10
+		if i-1 >= 0 {
+			tmp[i-1] += tmp[i] / 10
+		}
+		strs[i] = strconv.Itoa(tmp[i] % 10)
 	}
-	rue = string(bytes)
-	fmt.Println(string(bytes[:]))
-	fmt.Println(tmp)
-	return rue
+	if tmp[0] != 0 {
+		strs[0] = strconv.Itoa(tmp[0])
+	}
+	for _, s := range strs {
+		str += s
+	}
+	return str
 }
 
 func byteToInt(b byte) int {
@@ -72,4 +77,11 @@ func byteToInt(b byte) int {
 
 func getBitsTen(num int) (int, int) {
 	return num / 10, num % 10
+}
+func ReverseString(s string) string {
+	runes := []rune(s)
+	for from, to := 0, len(runes)-1; from < to; from, to = from+1, to-1 {
+		runes[from], runes[to] = runes[to], runes[from]
+	}
+	return string(runes)
 }

@@ -3,15 +3,17 @@ package main
 import (
 	"fmt"
 	"strings"
+	"unicode/utf8"
 )
 
 func main() {
-	str := "/a/b/c/d/a"
+	str := "hello"
 	//n := LastIndex(str, "/")
 	//str = string([]byte(str)[:n])
 	//fmt.Println(str)
 	//strings.Repeat()
-	//fmt.Println(strings.Replace("../../t/", "../../", "", 1))
+	fmt.Println(utf8.DecodeLastRuneInString(str))
+	fmt.Println(strings.Replace(str, "l", "23", 3))
 	//
 	//fmt.Println("Hello, 世界")
 	//var s string
