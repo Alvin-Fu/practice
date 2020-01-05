@@ -20,18 +20,30 @@ func Multiply(num1, num2 string) string {
 		return "0"
 	}
 	len1, len2 := len(num1), len(num2)
-	tmp := make(map[int]int)
+	tmp := make([]int, len1+len2)
 	for i := len1; i > 0; i-- {
 		for j := len2; j > 0; j-- {
 			index := i + j - 1
 			if index <= 0 {
 				index = 0
 			}
-			num := byteToInt(num1[i-1]) * byteToInt(num2[j-1])
-			tmp[index] += num
+			num := int(num1[i-1]-'0')*int(num2[j-1]-'0') + tmp[index]
+			if num > 10 {
+				tmp[index-1] += num / 10
+				tmp[index] = num % 10
+			} else {
+				tmp[index] = num
+			}
 		}
 	}
-	strs := make([]string, len1+len2)
+	if tmp[0] == 0 {
+		tmp = tmp[1:]
+	}
+	str := ""
+	for _, v := range tmp {
+		str += strconv.Itoa(v)
+	}
+	/*strs := make([]string, len1+len2)
 	str := ""
 	for i := len1 + len2 - 1; i > 0; i-- {
 		if i-1 >= 0 {
@@ -44,7 +56,7 @@ func Multiply(num1, num2 string) string {
 	}
 	for _, s := range strs {
 		str += s
-	}
+	}*/
 	return str
 }
 
