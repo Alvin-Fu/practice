@@ -3,5 +3,9 @@ package read
 import "testing"
 
 func TestRead(t *testing.T) {
-	Read()
+	ReadSlice()
+}
+
+func TestReadString(t *testing.T) {
+	ReadString()
 }
