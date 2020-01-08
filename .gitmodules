@@ -16,3 +16,9 @@
 [submodule "vendor/github.com/micro/go-micro"]
 	path = vendor/github.com/micro/go-micro
 	url = https://github.com/micro/go-micro
+[submodule "vendor/github.com/dgrijalva/jwt-go"]
+	path = vendor/github.com/dgrijalva/jwt-go
+	url = https://github.com/dgrijalva/jwt-go
+[submodule "vendor/github.com/spf13/viper"]
+	path = vendor/github.com/spf13/viper
+	url = https://github.com/spf13/viper
