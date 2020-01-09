@@ -19,4 +19,7 @@ type Writer struct {
 
 ## Reader功能
 	通过使用bufio.Reader可以用io.Reader中更大批量的读取数据。这样可以有效的减少I/O操作(系统调用)
+	
+
+
 ## Scanner功能

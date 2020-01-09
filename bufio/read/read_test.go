@@ -2,10 +2,14 @@ package read
 
 import "testing"
 
-func TestRead(t *testing.T) {
+func TestReadSlice(t *testing.T) {
 	ReadSlice()
 }
 
 func TestReadString(t *testing.T) {
 	ReadString()
+}
+
+func TestReadBytes(t *testing.T) {
+	ReadBytes()
 }
