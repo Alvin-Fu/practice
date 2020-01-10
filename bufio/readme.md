@@ -18,11 +18,10 @@ type Writer struct {
 提供了reset方法将Writer进行重置， reset可以使得buf进行复用，但是在调用reset的时候最好先调用flush将缓存的数据落地，因为reset只是简单的将数据丢弃而不会将数据落地
 
 ## Reader功能
-	通过使用bufio.Reader可以用io.Reader中更大批量的读取数据。这样可以有效的减少I/O操作(系统调用)
-	read中的方法 ReadSlice(), ReadString(),Read
-	```
+通过使用bufio.Reader可以用io.Reader中更大批量的读取数据。这样可以有效的减少I/O操作(系统调用)
+	read中的方法 三个相似的方法ReadSlice(), ReadString(),ReadBytes()
+	`后面的两个方法都是在内部调用ReadSlice()实现的`
 	
-	```
 	
 
 
