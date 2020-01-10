@@ -49,7 +49,7 @@ func Reader() {
 	read := strings.NewReader("hello world")
 	log.Printf("size: %v", read.Size())
 	reader := bufio.NewReaderSize(read, 2)
-	var bytes = make([]byte, 0)
+	var bytes = make([]byte, 10)
 	n, err := reader.Read(bytes)
 	if err != nil {
 		log.Fatalf("read err: %v", err)
