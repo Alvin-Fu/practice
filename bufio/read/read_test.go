@@ -13,3 +13,7 @@ func TestReadString(t *testing.T) {
 func TestReadBytes(t *testing.T) {
 	ReadBytes()
 }
+
+func TestReader(t *testing.T) {
+	Reader()
+}

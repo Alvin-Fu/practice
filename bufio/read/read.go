@@ -44,3 +44,17 @@ func ReadBytes() {
 	log.Printf("bytes1: %s", string(bytes1))
 	log.Printf("bytes2: %s", string(bytes2))
 }
+
+func Reader() {
+	read := strings.NewReader("hello world")
+	log.Printf("size: %v", read.Size())
+	reader := bufio.NewReaderSize(read, 2)
+	var bytes = make([]byte, 0)
+	n, err := reader.Read(bytes)
+	if err != nil {
+		log.Fatalf("read err: %v", err)
+		return
+	}
+	log.Printf("read num: %d", n)
+	log.Printf("bytes: %s", string(bytes))
+}
