@@ -21,6 +21,7 @@ type Writer struct {
 通过使用bufio.Reader可以用io.Reader中更大批量的读取数据。这样可以有效的减少I/O操作(系统调用)
 	read中的方法 三个相似的方法ReadSlice(), ReadString(),ReadBytes()
 	`后面的两个方法都是在内部调用ReadSlice()实现的`
+三者之前是有区别的，后两者在继续
 	
 	
 

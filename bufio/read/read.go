@@ -15,12 +15,12 @@ func ReadSlice() {
 	log.Printf("size: %v", read.Size())
 	reader := bufio.NewReaderSize(read, 2)
 	log.Printf("size: %d", reader.Size())
-	line, _ := reader.ReadSlice(' ')
-	log.Printf("line: %s", string(line))
+	line1, _ := reader.ReadSlice(' ')
+	log.Printf("line1: %s", string(line1))
 
-	lin, _ := reader.ReadSlice(' ')
-	log.Printf("line: %s", string(line))
-	log.Printf("lin: %s", string(lin))
+	line2, _ := reader.ReadSlice(' ')
+	log.Printf("line1: %s", string(line1))
+	log.Printf("line2: %s", string(line2))
 }
 
 func ReadString() {
@@ -38,9 +38,9 @@ func ReadBytes() {
 	read := strings.NewReader("hello world")
 	log.Printf("size: %v", read.Size())
 	reader := bufio.NewReaderSize(read, 2)
-	bytes, _ := reader.ReadBytes(' ')
-	log.Printf("bytes: %s", string(bytes))
-	bs, _ := reader.ReadBytes(' ')
-	log.Printf("bytes: %s", string(bytes))
-	log.Printf("bs: %s", string(bs))
+	bytes1, _ := reader.ReadBytes(' ')
+	log.Printf("bytes1: %s", string(bytes1))
+	bytes2, _ := reader.ReadBytes(' ')
+	log.Printf("bytes1: %s", string(bytes1))
+	log.Printf("bytes2: %s", string(bytes2))
 }
