@@ -10,10 +10,14 @@ func init() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 }
 func Scanner() {
-	file, err := os.Open("../readme.md")
+	name := "../readme.md"
+	file, err := os.Open(name)
 	if err != nil {
-		log.Fatalf("failed ")
+		log.Fatalf("failed to open file: %s", name)
+		return
 	}
+	defer file.Close()
+
 	bufio.NewScanner()
 
 }
