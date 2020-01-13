@@ -1,11 +1,13 @@
 package gjson
 
-import "github.com/tidwall/gjson"
+import (
+	"fmt"
+	"github.com/tidwall/gjson"
+)
 
-var str = `
-		
-	`
+const json = `{"name":[{"first":"Janet","last":"Prichard"}, {"abc": 1, "e" : 2}],"age":47}`
 
 func GJson() {
-	gjson.Get()
+	rue := gjson.Get(json, "name")
+	fmt.Println(rue.Type.String(), rue.String())
 }
