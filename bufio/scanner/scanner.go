@@ -9,19 +9,20 @@ import (
 func init() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 }
+
+var scanTests = []string{
+	"",
+	"a",
+	"¼",
+	"☹",
+	"\x81",   // UTF-8 error
+	"\uFFFD", // correctly encoded RuneError
+	"abcdefgh",
+	"abc def\n\t\tgh    ",
+	"abc¼☹\x81\uFFFD日本語\x82abc",
+}
+
 func Scanner() {
-	name := "../readme.md"
-	file, err := os.Open(name)
-	if err != nil {
-		log.Fatalf("failed to open file: %s, err: %v", name, err)
-		return
-	}
-	defer file.Close()
-	fileInfo, err := file.Stat()
-	if err != nil {
-		log.Fatalf("file stat err: %v", err)
-		return
-	}
 
 	bufio.NewScanner()
 
