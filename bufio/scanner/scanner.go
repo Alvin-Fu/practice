@@ -3,7 +3,7 @@ package scanner
 import (
 	"bufio"
 	"log"
-	"os"
+	"strings"
 )
 
 func init() {
@@ -23,7 +23,7 @@ var scanTests = []string{
 }
 
 func Scanner() {
-
-	bufio.NewScanner()
-
+	read := strings.NewReader(scanTests[len(scanTests)-1])
+	scanner := bufio.NewScanner(read)
+	log.Panicf("text: %s", scanner.Text())
 }
