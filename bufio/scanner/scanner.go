@@ -22,8 +22,8 @@ var scanTests = []string{
 	"abc¼☹\x81\uFFFD日本語\x82abc",
 }
 
-func Scanner() {
+func ScannerSplit() {
 	read := strings.NewReader(scanTests[len(scanTests)-1])
 	scanner := bufio.NewScanner(read)
-	log.Panicf("text: %s", scanner.Text())
+	scanner.Split(bufio.ScanBytes)
 }
