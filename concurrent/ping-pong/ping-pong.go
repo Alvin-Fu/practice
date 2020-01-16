@@ -9,7 +9,7 @@ import (
 func main() {
 	var Ball int
 	table := make(chan int)
-	for i := 0; i < 10; i++{
+	for i := 0; i < 100; i++{
 		go player(table)
 	}
 	table <- Ball
