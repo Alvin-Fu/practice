@@ -24,6 +24,7 @@ func producer(ch chan int, d time.Duration){
 		i ++
 		time.Sleep(d)
 		if i == 10{
+			ch <- i
 			break
 		}
 	}
