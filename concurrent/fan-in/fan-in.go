@@ -11,8 +11,12 @@ func main(){
 	go producer(ch, 100 * time.Millisecond)
 	go producer(ch, 200 *time.Millisecond)
 	go reader(out)
-	for i := range ch{
-		out <- i
+	for {
+		x, ok := <-ch
+		if !ok {
+			break
+		}
+		out <- x
 	}
 
 }
@@ -22,16 +26,21 @@ func producer(ch chan int, d time.Duration){
 	for {
 		ch <- i
 		i ++
-		time.Sleep(d)
+
 		if i == 10{
 			ch <- i
 			break
 		}
+		time.Sleep(d)
 	}
 }
 
 func reader(out chan int){
-	for x := range out{
+	for {
+		x, ok := <-out
+		if !ok {
+			break
+		}
 		fmt.Println(x)
 	}
 }
