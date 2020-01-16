@@ -13,7 +13,7 @@ func main() {
 		go player(table)
 	}
 	table <- Ball
-	time.Sleep(1 * time.Second)
+	time.Sleep(10 * time.Second)
 	<-table
 }
 
