@@ -9,7 +9,7 @@ func main(){
 	ch := make(chan int)
 	out := make(chan int)
 	go producer(ch, 100 * time.Millisecond)
-	go producer(ch, 200 *time.Millisecond)
+	go producer(ch, 230 *time.Millisecond)
 	go reader(out)
 	for {
 		x, ok := <-ch
