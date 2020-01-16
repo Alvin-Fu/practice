@@ -11,6 +11,7 @@ func main(){
 	go producer(ch, 100 * time.Millisecond)
 	go producer(ch, 230 *time.Millisecond)
 	go reader(out)
+	// 多路复用，reader在等待，producer生产然后进行消费
 	for i := range ch{
 		out <- i
 	}
