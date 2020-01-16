@@ -19,3 +19,6 @@
 [submodule "vendor/github.com/spf13/viper"]
 	path = vendor/github.com/spf13/viper
 	url = https://github.com/spf13/viper
+[submodule "vendor/github.com/gorilla/mux"]
+	path = vendor/github.com/gorilla/mux
+	url = https://github.com/gorilla/mux
