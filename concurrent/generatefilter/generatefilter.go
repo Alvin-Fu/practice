@@ -27,6 +27,7 @@ func generate(ch chan<- int){
 func filter(in <-chan int, out chan<- int, prime int){
 	for {
 		i := <- in
+		fmt.Println(i, prime)
 		if i % prime != 0 {
 			out <- i
 		}
