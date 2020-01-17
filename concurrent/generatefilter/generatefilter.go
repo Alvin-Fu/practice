@@ -7,7 +7,7 @@ import (
 func main(){
 	ch := make(chan int)
 	go generate(ch)
-	for i := 0; i < 5; i ++{
+	for i := 0; i < 2; i ++{
 		prime := <- ch
 		fmt.Println(prime)
 		ch1 := make(chan int)
@@ -28,8 +28,9 @@ func filter(in <-chan int, out chan<- int, prime int){
 		i := <- in
 		fmt.Printf("index: %d, prime: %d  \t",i, prime)
 		if i % prime != 0 {
-			fmt.Println()
+
 			out <- i
+			fmt.Println()
 		}
 	}
 }
