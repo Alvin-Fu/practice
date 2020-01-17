@@ -1,6 +1,11 @@
 package main
 
-import "sync"
+import (
+	"sync"
+	"time"
+	"fmt"
+	"github.com/petermattis/goid"
+)
 
 const (
 	Workers = 5
@@ -42,5 +47,12 @@ func worker2(tasks <- chan int, wg *sync.WaitGroup){
 	}
 }
 func subWorker(task chan int){
-
+	for {
+		t, ok := <- task
+		if !ok {
+			return
+		}
+		time.Sleep(time.Duration(t) * time.Millisecond)
+		fmt.Printf("gid: %d, task: %d\n", goid.Get(), t)
+	}
 }
