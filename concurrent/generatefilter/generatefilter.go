@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	)
+	"github.com/petermattis/goid"
+)
 
 func main(){
-	ch := make(chan int)
+	ch := make(chan int, 1)
 	go generate(ch)
-	for i := 0; i < 2; i ++{
+	for i := 0; i < 3; i ++{
 		prime := <- ch
-		fmt.Println(prime)
-		ch1 := make(chan int)
+		fmt.Println("prime: ",prime)
+		ch1 := make(chan int, 1)
 		go filter(ch, ch1, prime)
 		ch = ch1
 	}
@@ -18,7 +19,7 @@ func main(){
 
 func generate(ch chan<- int){
 	for i := 2; ; i++{
-		//fmt.Printf("gid: %d, i: %d\n", goid.Get(), i)
+		fmt.Printf("gid: %d, i: %d\n", goid.Get(), i)
 		ch <- i
 	}
 }
