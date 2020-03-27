@@ -37,3 +37,6 @@
 [submodule "vendor/github.com/astaxie/beego"]
 	path = vendor/github.com/astaxie/beego
 	url = https://github.com/astaxie/beego
+[submodule "vendor/github.com/aceld/zinx"]
+	path = vendor/github.com/aceld/zinx
+	url = https://github.com/aceld/zinx
