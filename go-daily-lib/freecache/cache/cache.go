@@ -8,7 +8,8 @@ import (
 	"time"
 		"os"
 	"practice/go-daily-lib/freecache/protocol"
-	"practice/go-daily-lib/freecache/log"
+	"log"
+	"github.com/coocood/freecache"
 )
 
 const (
@@ -18,7 +19,14 @@ const (
 	SvrStatusExiting int32 = 2
 )
 
+var Cache *CacheSvr
+
 type CacheSvr struct {
+	clientIdReq int64
+
+	caches *freecache.Cache
+
+
 	sync.Mutex
 	opts      atomic.Value
 	startTime time.Time
@@ -27,6 +35,9 @@ type CacheSvr struct {
 	waitGroup uitl.WaitGroupWrapper
 
 	tcpListener net.Listener
+
+	clientMtx sync.RWMutex
+	clients map[int64]*clientV1
 }
 
 func NewCacheSvr(opts *Options) *CacheSvr {
@@ -34,6 +45,7 @@ func NewCacheSvr(opts *Options) *CacheSvr {
 		startTime: time.Now(),
 		exitChan:  make(chan struct{}),
 		status: SvrStatusInit,
+		clients: make(map[int64]*clientV1),
 	}
 	cacheSvr.swapOpts(opts)
 
@@ -44,10 +56,12 @@ func (cs *CacheSvr) Main() {
 	var err error
 	cs.tcpListener, err = net.Listen("tcp", cs.getOpts().TCPAddr)
 	if err != nil {
-		log.Debugf("net listen err: %v", err)
+		log.Printf("net listen err: %v", err)
 		os.Exit(1)
 	}
-	tcpSever := &tcpSever{}
+	ctx := new(context)
+	ctx.cs = cs
+	tcpSever := &tcpSever{ctx}
 	cs.waitGroup.Wrap(func() {
 		protocol.TCPSever(cs.tcpListener, tcpSever)
 	})
@@ -62,6 +76,17 @@ func (cs *CacheSvr) Status()int32{
 
 func (cs *CacheSvr) SetSvrStatus(status int32){
 	cs.status = status
+}
+
+func (cs *CacheSvr) AddClient(clientId int64, client *clientV1){
+	cs.clientMtx.Lock()
+	defer cs.clientMtx.Unlock()
+	cs.clients[clientId] = client
+}
+func (ca *CacheSvr) RemoveClient(clientId int64){
+	ca.clientMtx.Lock()
+	defer ca.clientMtx.Unlock()
+	delete(ca.clients, clientId)
 }
 
 func (cs *CacheSvr) swapOpts(opts *Options){

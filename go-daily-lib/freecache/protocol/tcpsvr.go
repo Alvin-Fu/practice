@@ -5,7 +5,7 @@ import (
 	"practice/go-daily-lib/freecache/uitl"
 		"runtime"
 
-	"practice/go-daily-lib/freecache/log"
+	"log"
 )
 
 type TCPHandel interface {
@@ -31,8 +31,8 @@ func TCPSever(listener net.Listener, handler TCPHandel)error{
 			handler.Handle(conn)
 		})
 	}
-	log.Debugf("tcp sever closing")
+	log.Printf("tcp sever closing")
 	waitGroup.Wait()
-	log.Debugf("tcp sever quit")
+	log.Printf("tcp sever quit")
 	return nil
 }
