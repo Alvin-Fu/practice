@@ -5,8 +5,7 @@ import (
 	"log"
 	"time"
 	"fmt"
-	"encoding/binary"
-	"practice/go-daily-lib/freecache/protocol"
+		"practice/go-daily-lib/freecache/protocol"
 )
 
 func init(){
@@ -26,13 +25,14 @@ func main(){
 
 func onMessage(conn net.Conn) {
 	for {
-		body := []byte("hello")
-		data := make([]byte, 12)
-		data[0] = byte('v')
-		data[1] = byte('1')
-		binary.BigEndian.PutUint32(data[2:6], uint32(12))
-		data[6] = byte(1)
-		copy(data[protocol.HeadTotalLength:], body)
+		packet := new(protocol.Packet)
+		packet.Fill([2]byte{'v', '1'}, '1', []byte("hello"))
+		data, err := packet.Marshal()
+		if err != nil {
+			log.Fatalf("packet marshal err: %v", err)
+			exitChan <- struct{}{}
+			break
+		}
 		n, err := conn.Write(data)
 		if err != nil {
 			log.Fatalf("write err: %v", err)
@@ -43,3 +43,4 @@ func onMessage(conn net.Conn) {
 		time.Sleep(2 * time.Second)
 	}
 }
+

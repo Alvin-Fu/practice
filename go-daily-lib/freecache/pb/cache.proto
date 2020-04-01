@@ -1,0 +1,36 @@
+syntax="proto2";
+package PbCache;
+
+
+import "vendor/github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option (gogoproto.gostring_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.stringer_all) =  true;
+option (gogoproto.populate_all) = true;
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+
+enum OptionType {
+    Option_Type_Get = 1;
+    Option_Type_Set = 2;
+    Option_Type_Del = 3;
+}
+
+message CacheReq{
+    optional OptionType option_type = 1;
+    optional string key = 2;
+    optional string value = 3;
+    optional int64 expire = 4;
+}
+
+message CacheResp{
+    optional int32 err_code = 1;
+    optional string err_msg = 2;
+    optional string rue = 3;
+}
