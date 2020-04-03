@@ -3,9 +3,10 @@ package main
 import (
 	"net"
 	"log"
-	"time"
-	"fmt"
+		"fmt"
 		"practice/go-daily-lib/freecache/protocol"
+	"practice/go-daily-lib/freecache/pb"
+	"github.com/gogo/protobuf/proto"
 )
 
 func init(){
@@ -25,8 +26,13 @@ func main(){
 
 func onMessage(conn net.Conn) {
 	for {
+		req := new(PbCache.CacheReq)
+		req.OptionType = PbCache.OptionType_Option_Type_Set.Enum()
+		req.Key = proto.String("hello")
+		req.Value = proto.String("world")
+		d, _ := req.Marshal()
 		packet := new(protocol.Packet)
-		packet.Fill([2]byte{'v', '1'}, '1', []byte("hello"))
+		packet.Fill([2]byte{'v', '1'}, '1', d)
 		data, err := packet.Marshal()
 		if err != nil {
 			log.Fatalf("packet marshal err: %v", err)
@@ -40,7 +46,8 @@ func onMessage(conn net.Conn) {
 			break
 		}
 		fmt.Println(n)
-		time.Sleep(2 * time.Second)
+		exitChan <- struct{}{}
+		break
 	}
 }
 

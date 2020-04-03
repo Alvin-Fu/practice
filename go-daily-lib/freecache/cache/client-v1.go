@@ -6,6 +6,7 @@ import (
 		"bufio"
 	"log"
 	"time"
+	"sync/atomic"
 )
 const defaultBufferSize =8 * 1024
 
@@ -57,5 +58,10 @@ func (c *clientV1)Flush()error{
 		return err
 	}
 	return nil
+}
+
+func (c *clientV1) Logout(){
+	atomic.StoreInt32(&c.status, statusClosing)
+
 }
 

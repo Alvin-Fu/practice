@@ -23,8 +23,10 @@ func main() {
 }
 
 func Read(zoo []Animal) {
+	n := 100
 	for _, a := range zoo {
-		a.legs = 100
+		a.legs = n
+		fmt.Println(a.legs, zoo)
 	}
 	fmt.Printf("%v\n", zoo)
 }

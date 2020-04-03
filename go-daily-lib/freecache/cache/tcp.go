@@ -21,7 +21,7 @@ func (s *tcpSever) Handle( conn net.Conn){
 	prot = &protocolV1{s.ctx}
 	err := prot.IOLoop(conn)
 	if err != nil {
-		log.Fatalf("io loop err: %v", err)
+		//log.Fatalf("io loop err: %v", err)
 		return
 	}
 

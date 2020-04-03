@@ -6,10 +6,10 @@ type WaitGroupWrapper struct{
 	sync.WaitGroup
 }
 
-func (w *WaitGroupWrapper) Wrap(fu func()){
+func (w *WaitGroupWrapper) Wrap(cd func()){
 	w.Add(1)
 	go func() {
-		fu()
+		cd()
 		w.Done()
 	}()
 }

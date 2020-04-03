@@ -19,6 +19,10 @@ const (
 	SvrStatusExiting int32 = 2
 )
 
+var (
+	CacheSize = 256 * 1024 * 1024
+)
+
 var Cache *CacheSvr
 
 type CacheSvr struct {
@@ -46,6 +50,7 @@ func NewCacheSvr(opts *Options) *CacheSvr {
 		exitChan:  make(chan struct{}),
 		status: SvrStatusInit,
 		clients: make(map[int64]*clientV1),
+		caches: freecache.NewCache(CacheSize),
 	}
 	cacheSvr.swapOpts(opts)
 

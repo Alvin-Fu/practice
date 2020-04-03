@@ -4,7 +4,7 @@ import (
 	"time"
 	"os"
 
-	"practice/go-daily-lib/freecache/log"
+	"log"
 	"crypto/md5"
 	"io"
 	"hash/crc32"

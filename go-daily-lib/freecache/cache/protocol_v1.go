@@ -35,9 +35,10 @@ func (p *protocolV1) IOLoop(conn net.Conn)error{
 			if err == io.EOF{
 				err = nil
 			} else {
-				err = fmt.Errorf("")
+				err = fmt.Errorf("failed to read command - %v", err)
 			}
 			ioErr = err
+			//log.Fatalf("read request err: %v", err)
 			break
 		}
 		if  req == nil {
@@ -46,8 +47,9 @@ func (p *protocolV1) IOLoop(conn net.Conn)error{
 		}
 		// 根据包内容进行操作
 		log.Printf("req: %s", req.String())
-		p.Exec(client, req, p.execCallBack)
+		go p.Exec(client, req, p.execCallBack)
 	}
+	log.Fatalf("ioerr: %v", ioErr)
 	return ioErr
 }
 
@@ -61,16 +63,24 @@ func (p *protocolV1) Exec(client *clientV1, req *PbCache.CacheReq, cb execCallBa
 		value, err := Cache.caches.Get([]byte(req.GetKey()))
 		if err != nil {
 			log.Fatalf("caches get err: %v", err)
-			p.MakeCacheResponse(err.Error())
+			resp, _ = p.MakeCacheResponse(err.Error(), protocol.CacheSvrErrCode, "")
+		} else{
+			resp, _ = p.MakeCacheResponse("", protocol.CacheSvrOK, string(value))
 		}
 
 	case PbCache.OptionType_Option_Type_Set:
 		// 设置
 		err = Cache.caches.Set([]byte(req.GetKey()), []byte(req.GetValue()), int(req.GetExpire()))
+		if err != nil {
+			log.Fatalf("caches get err: %v", err)
+			resp, _ = p.MakeCacheResponse(err.Error(), protocol.CacheSvrErrCode, "")
+		} else{
+			resp, _ = p.MakeCacheResponse("", protocol.CacheSvrOK, "")
+		}
 	case PbCache.OptionType_Option_Type_Del:
 		// 删除
 		if Cache.caches.Del([]byte(req.GetKey())){
-
+			resp, _ = p.MakeCacheResponse("", protocol.CacheSvrOK, "ok")
 		}
 	default:
 
@@ -82,11 +92,12 @@ func (p *protocolV1) Exec(client *clientV1, req *PbCache.CacheReq, cb execCallBa
 func (p *protocolV1) Send(client *clientV1, data []byte) error{
 	client.writeLock.Lock()
 	defer client.writeLock.Unlock()
-	_, err := p.SendResponse(client.Writer, 0, data)
+	n, err := p.SendResponse(client.Writer, 0, data)
 	if err != nil {
 		log.Fatalf("send response err: %v", err)
 		return err
 	}
+	log.Printf("send count: %d", n)
 	client.Flush()
 	return nil
 }
@@ -123,9 +134,9 @@ func (p *protocolV1) execCallBack(client *clientV1, req interface{}, resp []byte
 
 func (p *protocolV1) readRequest(client *clientV1, skit int)(*PbCache.CacheReq, error){
 	headBuf := make([]byte, protocol.HeadTotalLength)
-	n, err := io.ReadFull(client.Reader, headBuf)
+	_, err := io.ReadFull(client.Reader, headBuf)
 	if err != nil {
-		log.Fatalf("read full err: %v, n: %d", err, n)
+		//log.Fatalf("read full err: %v", err)
 		return nil, err
 	}
 	// 使用pb或者json
@@ -133,7 +144,7 @@ func (p *protocolV1) readRequest(client *clientV1, skit int)(*PbCache.CacheReq, 
 	body := make([]byte, bodyLen)
 	_, err = io.ReadFull(client.Reader, body)
 	if err != nil {
-		log.Fatalf("read full err: %v, n: %d", err, n)
+		//log.Fatalf("read full err: %v", err)
 		return nil, err
 	}
 	req := new(PbCache.CacheReq)
@@ -155,3 +166,5 @@ func (p *protocolV1) processRequest(client *clientV1){
 }
 
 func (p *protocolV1) kick(){}
+
+func (p *protocolV1) logout(client *clientV1){}
