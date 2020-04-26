@@ -38,7 +38,7 @@ func (p *protocolV1) IOLoop(conn net.Conn)error{
 				err = fmt.Errorf("failed to read command - %v", err)
 			}
 			ioErr = err
-			//log.Fatalf("read request err: %v", err)
+			log.Printf("read request err: %v", err)
 			break
 		}
 		if  req == nil {
@@ -49,8 +49,12 @@ func (p *protocolV1) IOLoop(conn net.Conn)error{
 		log.Printf("req: %s", req.String())
 		go p.Exec(client, req, p.execCallBack)
 	}
-	log.Fatalf("ioerr: %v", ioErr)
-	return ioErr
+	if ioErr != nil {
+		log.Fatalf("ioerr: %v", ioErr)
+		return ioErr
+	}
+	log.Println(ioErr)
+	return nil
 }
 
 

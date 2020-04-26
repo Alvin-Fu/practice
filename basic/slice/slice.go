@@ -1,8 +1,8 @@
 package main
 
 import (
+		"sync"
 	"fmt"
-	"sync"
 )
 
 func Get() {
@@ -27,7 +27,10 @@ func (at *ArrayT) Del(b int) {
 }
 
 func main() {
-	CapLen()
+	//CapLen()
+
+	tmp := []int{1, 2, 3, 4, 5}
+	fmt.Println(tmp[:len(tmp)-1])
 	//var t *ArrayT
 	//if t == nil {
 	//	fmt.Println("hello")
