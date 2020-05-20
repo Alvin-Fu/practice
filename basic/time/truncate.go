@@ -1,11 +1,15 @@
 package main
 
 import (
-	"time"
 	"fmt"
+	"time"
 )
 
-func main(){
+type People struct {
+	name string `json:"name"`
+}
+
+func main() {
 	t := time.Now()
 	//for i := 0; i <= 24; i++{
 	//	fmt.Println(i, t.Truncate(time.Hour * time.Duration(i)))
