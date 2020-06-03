@@ -3,24 +3,34 @@ package main
 import "fmt"
 
 func main() {
-	str := convert("LEETCODEISHIRING", 3)
+	str := convert("LEAD", 2)
 	fmt.Println(str)
 }
 
 func convert(s string, numRows int) string {
+	if numRows == 1 {
+		return s
+	}
 	str := make([]byte, 0)
 	data := []byte(s)
-	for j := 0; j < numRows; {
-
-	}
-	for i := 0; i < len(s); i += (numRows - 1) * 2 {
-		str = append(str, data[i])
-	}
-	for i := 1; i < len(s); i += (numRows - 2) * 2 {
-		str = append(str, data[i])
-	}
-	for i := 2; i < len(s); i += (numRows - 1) * 2 {
-		str = append(str, data[i])
+	first := (numRows - 1) * 2
+	for j := 0; j < numRows; j++ {
+		count := 1
+		m := j + 1
+		//fmt.Println(m)
+		t := (numRows - m) * 2
+		for i := j; i < len(s); {
+			str = append(str, data[i])
+			//fmt.Println(string(str), i, t)
+			if t == 0 {
+				i += first
+			} else if count%2 == 0 && first-t != 0 {
+				i += first - t
+			} else {
+				i += t
+			}
+			count++
+		}
 	}
 	return string(str)
 }
