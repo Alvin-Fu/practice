@@ -43,3 +43,12 @@
 [submodule "vendor/github.com/XiaoMi/Gaea"]
 	path = vendor/github.com/XiaoMi/Gaea
 	url = https://github.com/XiaoMi/Gaea
+[submodule "vendor/github.com/go-ini/ini"]
+	path = vendor/github.com/go-ini/ini
+	url = https://github.com/go-ini/ini
+[submodule "vendor/github.com/gin-contrib/gzip"]
+	path = vendor/github.com/gin-contrib/gzip
+	url = https://github.com/gin-contrib/gzip
+[submodule "vendor/github.com/gin-gonic/gin"]
+	path = vendor/github.com/gin-gonic/gin
+	url = https://github.com/gin-gonic/gin
