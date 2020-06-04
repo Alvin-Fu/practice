@@ -10,4 +10,9 @@ func main(){
 	fmt.Println(len(tmp))
 	delete(tmp, 2)
 	fmt.Println(len(tmp), tmp)
+	seq := make(map[int]int, 3)
+	for i := 0; i < 5; i ++{
+		seq[i] = i
+	}
+	fmt.Println(seq)
 }
