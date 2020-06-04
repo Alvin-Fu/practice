@@ -40,3 +40,6 @@
 [submodule "vendor/github.com/aceld/zinx"]
 	path = vendor/github.com/aceld/zinx
 	url = https://github.com/aceld/zinx
+[submodule "vendor/github.com/XiaoMi/Gaea"]
+	path = vendor/github.com/XiaoMi/Gaea
+	url = https://github.com/XiaoMi/Gaea
