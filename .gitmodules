@@ -52,3 +52,6 @@
 [submodule "vendor/github.com/gin-gonic/gin"]
 	path = vendor/github.com/gin-gonic/gin
 	url = https://github.com/gin-gonic/gin
+[submodule "vendor/github.com/gocolly/colly"]
+	path = vendor/github.com/gocolly/colly
+	url = https://github.com/gocolly/colly
