@@ -55,3 +55,6 @@
 [submodule "vendor/github.com/gocolly/colly"]
 	path = vendor/github.com/gocolly/colly
 	url = https://github.com/gocolly/colly
+[submodule "vendor/github.com/uber-go/ratelimit"]
+	path = vendor/github.com/uber-go/ratelimit
+	url = https://github.com/uber-go/ratelimit
