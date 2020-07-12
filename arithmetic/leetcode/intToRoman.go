@@ -3,6 +3,13 @@ package main
 import "fmt"
 
 func main() {
+	num := 3929
+	nums := make([]int, 0)
+	for num > 0 {
+		nums = append(nums, num%10)
+		num = num / 10
+	}
+	fmt.Println(nums)
 	fmt.Println(intToRoman(500))
 }
 
