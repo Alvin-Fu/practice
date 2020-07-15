@@ -97,3 +97,12 @@
 [submodule "vendor/github.com/jcmturner/rcrowley/go-metrics"]
 	path = vendor/github.com/jcmturner/rcrowley/go-metrics
 	url = https://github.com/rcrowley/go-metrics
+[submodule "vendor/github.com/golang/snappy"]
+	path = vendor/github.com/golang/snappy
+	url = https://github.com/golang/snappy
+[submodule "vendor/github.com/pierrec/lz4"]
+	path = vendor/github.com/pierrec/lz4
+	url = https://github.com/pierrec/lz4
+[submodule "vendor/github.com/rcrowley/go-metrics"]
+	path = vendor/github.com/rcrowley/go-metrics
+	url = https://github.com/rcrowley/go-metrics
