@@ -58,3 +58,24 @@
 [submodule "vendor/github.com/uber-go/ratelimit"]
 	path = vendor/github.com/uber-go/ratelimit
 	url = https://github.com/uber-go/ratelimit
+[submodule "vendor/github.com/Shopify/sarama"]
+	path = vendor/github.com/Shopify/sarama
+	url = https://github.com/Shopify/sarama
+[submodule "vendor/gopkg.in/jcmturner/aescts.v1"]
+	path = vendor/gopkg.in/jcmturner/aescts.v1
+	url = https://gopkg.in/jcmturner/aescts.v1
+[submodule "vendor/gopkg.in/jcmturner/dnsutils.v1"]
+	path = vendor/gopkg.in/jcmturner/dnsutils.v1
+	url = https://gopkg.in/jcmturner/dnsutils.v1
+[submodule "vendor/gopkg.in/jcmturner/rpc.v1"]
+	path = vendor/gopkg.in/jcmturner/rpc.v1
+	url = https://gopkg.in/jcmturner/rpc.v1
+[submodule "vendor/github.com/klauspost/compress"]
+	path = vendor/github.com/klauspost/compress
+	url = https://github.com/klauspost/compress
+[submodule "vendor/github.com/klauspost/cpuid"]
+	path = vendor/github.com/klauspost/cpuid
+	url = https://github.com/klauspost/cpuid
+[submodule "vendor/github.com/klauspost/pgzip"]
+	path = vendor/github.com/klauspost/pgzip
+	url = https://github.com/klauspost/pgzip
