@@ -79,3 +79,21 @@
 [submodule "vendor/github.com/klauspost/pgzip"]
 	path = vendor/github.com/klauspost/pgzip
 	url = https://github.com/klauspost/pgzip
+[submodule "vendor/github.com/eapache/go-resiliency"]
+	path = vendor/github.com/eapache/go-resiliency
+	url = https://github.com/eapache/go-resiliency
+[submodule "vendor/github.com/eapache/go-xerial-snappy"]
+	path = vendor/github.com/eapache/go-xerial-snappy
+	url = https://github.com/eapache/go-xerial-snappy
+[submodule "vendor/github.com/eapache/queue"]
+	path = vendor/github.com/eapache/queue
+	url = https://github.com/eapache/queue
+[submodule "vendor/github.com/hashicorp/go-uuid"]
+	path = vendor/github.com/hashicorp/go-uuid
+	url = https://github.com/hashicorp/go-uuid
+[submodule "vendor/github.com/jcmturner/gofork"]
+	path = vendor/github.com/jcmturner/gofork
+	url = https://github.com/jcmturner/gofork
+[submodule "vendor/github.com/jcmturner/rcrowley/go-metrics"]
+	path = vendor/github.com/jcmturner/rcrowley/go-metrics
+	url = https://github.com/rcrowley/go-metrics
