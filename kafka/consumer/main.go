@@ -7,7 +7,7 @@ import (
 )
 
 var wg sync.WaitGroup
-var topic = "test1"
+var topic = "test"
 func main(){
     consumer, err := sarama.NewConsumer([]string{"127.0.0.1:9092"}, nil)
     if err != nil {
