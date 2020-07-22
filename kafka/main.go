@@ -1,9 +1,7 @@
 package main
 
-import "fmt"
+import "go-common/library/stat/sys/cpu"
 
 func main(){
-    var value, msgType string
-    fmt.Scanf("%s", &value)
-    fmt.Println(value, msgType)
+    cpu.GetInfo()
 }
