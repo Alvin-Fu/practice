@@ -1,0 +1,19 @@
+{
+    "language": "en",
+    "messages": [
+        {
+            "id": "login multiple times",
+            "message": "login multiple times",
+            "translation": "login multiple times",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        },
+        {
+            "id": "client request error",
+            "message": "client request error",
+            "translation": "client request error",
+            "translatorComment": "Copied from source.",
+            "fuzzy": true
+        }
+    ]
+}

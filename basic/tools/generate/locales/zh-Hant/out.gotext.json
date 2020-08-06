@@ -1,0 +1,15 @@
+{
+    "language": "zh-Hant",
+    "messages": [
+        {
+            "id": "login multiple times",
+            "message": "login multiple times",
+            "translation": "重復登錄"
+        },
+        {
+            "id": "client request error",
+            "message": "client request error",
+            "translation": "客戶端請求錯誤"
+        }
+    ]
+}

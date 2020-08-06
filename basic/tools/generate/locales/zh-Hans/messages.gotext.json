@@ -1,0 +1,15 @@
+{
+  "language": "zh-Hans",
+  "messages": [
+    {
+      "id": "client request error",
+      "message": "client request error",
+      "translation": "客户端请求错误"
+    },
+    {
+      "id": "login multiple times",
+      "message": "login multiple times",
+      "translation": "重复登录"
+    }
+    ]
+}
