@@ -50,7 +50,7 @@ func init(){
         Right: right3,
     }
     Root = &TreeNode{
-        Val: 1,
+        Val: -10,
         Left: left1,
         Right: right1,
     }
