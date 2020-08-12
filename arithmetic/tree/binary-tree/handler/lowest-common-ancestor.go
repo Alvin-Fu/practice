@@ -2,8 +2,7 @@ package handler
 
 import (
     "practice/arithmetic/tree/binary-tree/model"
-    "fmt"
-)
+    )
 
 func LowestCommonAncestor(root, p, q *model.TreeNode) *model.TreeNode{
     if root == nil || p == nil || q == nil  {
@@ -31,19 +30,26 @@ type CommonResult struct {
     isP, isQ bool
 }
 
-func lowest(root, p, q *model.TreeNode)*CommonResult{
+func Lowest(root, p, q *model.TreeNode)*CommonResult{
     if root == nil{
         return nil
     }
-
-    lowest(root.Left, p, q)
-    lowest(root.Right, p, q)
+    result := &CommonResult{}
     if root.Val == p.Val {
-
-        fmt.Println(root.Val)
+        result.common = root
+        result.isP = true
     }
     if root.Val == q.Val {
-        fmt.Println(root.Val)
+        result.common = root
+        result.isQ = true
+    }
+    left := Lowest(root.Left, p, q)
+    right := Lowest(root.Right, p, q)
+    if left.isP && left.isQ {
+        return  left
+    }
+    if right.isP &&right.isQ{
+        return right
     }
     return nil
 }
