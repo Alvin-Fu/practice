@@ -72,6 +72,13 @@ func (s *HTTPSever) RegRouter() error {
 	s.router.HandleFunc("/debug/pprof/trace", pprof.Trace)
 	s.router.HandleFunc("/debug/pprof/{name:[a-z]+}", pprofHelper)
 	//s.router.HandleFunc("/debug/charts")
+
+	sr := s.router.PathPrefix("/v1/").Subrouter()
+	handler := &HTTPHandlerV1{}
+	// just save handler
+	s.handler = handler
+	sr.HandleFunc("/roots", handler.GetRobots).Methods("GET")
+	sr.HandleFunc("/roots/connect/{opt:[\\w-]*}", handler.GetConnectRobots).Methods("GET")
 	return nil
 }
 

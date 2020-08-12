@@ -11,12 +11,12 @@ import (
 	"path/filepath"
 	options2 "practice/http/options"
 	"practice/http/svrmonitoring"
-	"practice/web/uitl"
+	"practice/http/util"
 )
 
 type config map[string]interface{}
 type program struct {
-	wg   uitl.WaitGroupWrapper
+	wg   util.WaitGroupWrapper
 	quit chan struct{}
 }
 
