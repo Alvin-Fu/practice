@@ -106,3 +106,6 @@
 [submodule "vendor/github.com/rcrowley/go-metrics"]
 	path = vendor/github.com/rcrowley/go-metrics
 	url = https://github.com/rcrowley/go-metrics
+[submodule "vendor/github.com/hajimehoshi/ebiten"]
+	path = vendor/github.com/hajimehoshi/ebiten
+	url = https://github.com/hajimehoshi/ebiten

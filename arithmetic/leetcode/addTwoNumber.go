@@ -1,9 +1,9 @@
 package main
 
-type ListNode struct {
-	Val int
-	Next *ListNode
-}
+//type ListNode struct {
+//	Val int
+//	Next *ListNode
+//}
 
 func AddTwoNumbers(l1, l2 *ListNode)*ListNode{
 	var rue = new(ListNode)

@@ -40,9 +40,6 @@ func (h *HTTPHandlerV1) GetConnectRobots(w http.ResponseWriter, r *http.Request)
             h.response(w, http.StatusBadRequest, "invalid empty body", []byte("invalid empty body"))
             return
         }
-        for i := 0; i < 10000; i++{
-            stat = append(stat, []byte("hello")...)
-        }
     default:
         h.response(w, http.StatusBadRequest, fmt.Sprintf("invalid option: %s", opt), []byte("invalid option"))
         return
