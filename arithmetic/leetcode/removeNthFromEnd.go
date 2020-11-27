@@ -1,9 +1,8 @@
 package main
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
+import (
+	. "practice/arithmetic/leetcode/model"
+)
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	tmp := make(map[int]*ListNode)

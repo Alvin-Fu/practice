@@ -1,10 +1,12 @@
 package main
 
-import "fmt"
-type ListNode struct {
-    Val  int
-    Next *ListNode
-}
+import (
+        "fmt"
+    . "practice/arithmetic/leetcode/model"
+)
+
+
+
 func main(){
     node3 := &ListNode{
         Val: 4,

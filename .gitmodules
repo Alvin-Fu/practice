@@ -109,3 +109,6 @@
 [submodule "vendor/github.com/hajimehoshi/ebiten"]
 	path = vendor/github.com/hajimehoshi/ebiten
 	url = https://github.com/hajimehoshi/ebiten
+[submodule "vendor/github.com/8treenet/freedom"]
+	path = vendor/github.com/8treenet/freedom
+	url = https://github.com/8treenet/freedom
