@@ -112,3 +112,6 @@
 [submodule "vendor/github.com/8treenet/freedom"]
 	path = vendor/github.com/8treenet/freedom
 	url = https://github.com/8treenet/freedom
+[submodule "vendor/github.com/jinzhu/gorm"]
+	path = vendor/github.com/jinzhu/gorm
+	url = https://github.com/jinzhu/gorm
