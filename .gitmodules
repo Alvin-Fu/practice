@@ -115,3 +115,6 @@
 [submodule "vendor/github.com/jinzhu/gorm"]
 	path = vendor/github.com/jinzhu/gorm
 	url = https://github.com/jinzhu/gorm
+[submodule "vendor/github.com/alibaba/sentinel-golang"]
+	path = vendor/github.com/alibaba/sentinel-golang
+	url = https://github.com/alibaba/sentinel-golang.git
