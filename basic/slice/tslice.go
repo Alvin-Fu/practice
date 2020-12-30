@@ -1,27 +1,20 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
-	var arr = make([]int, 126028934144)
-	fmt.Println(cap(arr), len(arr))
-	//for i := 0; i < 10; i++ {
-	//	arr = append(arr, i+1)
-	//}
-	//wg := sync.WaitGroup{}
-	//var tmp = make([]int, 0)
-	//wg.Add(2)
-	//go func() {
-	//	arr = arr[:5]
-	//	wg.Done()
-	//}()
-	//go func() {
-	//	tmp = append(tmp, arr...)
-	//	wg.Done()
-	//}()
-	//wg.Wait()
-	//fmt.Println("tmp", tmp)
-	//fmt.Println("arr", arr)
+	a := make([]int64, 0)
+	for i := 0; i < 10; i++ {
+		a = append(a, int64(i+1))
+	}
+	a = Arr(a)
+	fmt.Println(len(a), cap(a), a)
+}
+
+func Arr(tmp []int64) []int64 {
+	for i := 0; i < 5; i++ {
+		tmp[i] = 1
+	}
+	tmp = tmp[:5]
+	return tmp
 }
