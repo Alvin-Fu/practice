@@ -1,0 +1,41 @@
+syntax="proto2";
+
+package pbTest;
+
+import "vendor/github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option (gogoproto.gostring_all) = true;
+option (gogoproto.equal_all) = true;
+option (gogoproto.verbose_equal_all) = true;
+option (gogoproto.goproto_stringer_all) = false;
+option (gogoproto.stringer_all) =  true;
+option (gogoproto.populate_all) = true;
+option (gogoproto.testgen_all) = true;
+option (gogoproto.benchgen_all) = true;
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+
+message Test1 {
+    required int32 a = 1;
+}
+
+message Test2 {
+    required string b = 2;
+}
+
+message Test3 {
+    required Test1 c = 3;
+}
+
+message Test4 {
+    repeated int32 d = 4 [packed=true];
+}
+
+message Test5 {
+    repeated string e = 5;
+}
+
+message Test6 {
+    optional int32 f = 6;
+}
