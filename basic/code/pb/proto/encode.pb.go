@@ -1020,6 +1020,7 @@ func (m *Test6) MarshalTo(dAtA []byte) (int, error) {
 func encodeVarintEncode(dAtA []byte, offset int, v uint64) int {
 	for v >= 1<<7 {
 		dAtA[offset] = uint8(v&0x7f | 0x80)
+		fmt.Println(dAtA[offset], v)
 		v >>= 7
 		offset++
 	}

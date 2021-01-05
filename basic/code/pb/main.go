@@ -8,8 +8,9 @@ import (
 
 func main() {
 	t1 := &pbTest.Test1{
-		A: proto.Int32(-1000000000),
+		A: proto.Int32(200000),
 	}
 	data, _ := t1.Marshal()
 	fmt.Println(data)
+	t1.Unmarshal(data)
 }
