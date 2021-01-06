@@ -137,12 +137,12 @@ func (c *ClientV1) writeLoop() {
 			if err != nil {
 				goto exit
 			}
-			if len(c.writeChan) == 0 {
-				err = c.writer.Flush()
-				if err != nil {
-					goto exit
-				}
+			//if len(c.writeChan) == 0 {
+			err = c.writer.Flush()
+			if err != nil {
+				goto exit
 			}
+			//}
 		case <-c.exitChan:
 			goto exit
 		}
