@@ -111,6 +111,7 @@ func (c *ClientV1) readLoop() {
 		if err != nil {
 			goto exit
 		}
+		fmt.Println("pack: ", pack)
 		select {
 		case <-c.exitChan:
 			goto exit
@@ -130,9 +131,7 @@ func (c *ClientV1) writeLoop() {
 	for {
 		select {
 		case data := <-c.writeChan:
-			fmt.Println(data)
 			pack.Fill(protocol.PacketVersionV1, 1, data)
-			fmt.Println(*pack)
 			err := c.encoder.Encode(pack)
 			if err != nil {
 				goto exit

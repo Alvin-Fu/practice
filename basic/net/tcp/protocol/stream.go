@@ -2,6 +2,7 @@ package protocol
 
 import (
 	"encoding/binary"
+	"fmt"
 	"io"
 )
 
@@ -49,9 +50,10 @@ func (e *Encoder) Encode(p *Packet) error {
 	e.buf[6] = byte(p.pType)
 
 	copy(e.buf[PacketHeadLength:], p.Payload())
-	_, err := e.w.Write(e.buf[0:p.Length()])
+	n, err := e.w.Write(e.buf[0:p.Length()])
 	if err != nil {
 		return err
 	}
+	fmt.Println("write: ", n)
 	return nil
 }
