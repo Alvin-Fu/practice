@@ -30,16 +30,18 @@ func (p *protocolV1) IOLoop(conn net.Conn) error {
 			fmt.Println(err)
 			break
 		}
-		p.writePacket(client)
+
 	}
 	return nil
 }
 
 func (p *protocolV1) readPacket(client *ClientV1) error {
+	p.writePacket(client)
 	err := p.dec.Decode(p.reqPack)
 	if err != nil {
 		return err
 	}
+
 	fmt.Println(*p.reqPack)
 	return nil
 }
