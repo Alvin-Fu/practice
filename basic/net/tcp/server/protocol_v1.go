@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net"
 	"practice/basic/net/tcp/protocol"
+	"time"
 )
 
 type protocolV1 struct {
@@ -17,14 +18,24 @@ func (p *protocolV1) IOLoop(conn net.Conn) error {
 	client := NewClient(conn)
 	p.dec = protocol.NewDecoder(client.Reader)
 	p.enc = protocol.NewEncoder(client.Writer)
-	//go func() {
-	//	for i := 0; i < 100; i++ {
-	//
-	//		time.Sleep(time.Second * 1)
-	//	}
-	//	return
-	//}()
+	go func() {
+		for i := 0; i < 1000; i++ {
+			err := p.writePacket(client)
+			if err != nil {
+				fmt.Println("write packet err", err)
+				break
+			}
+			time.Sleep(time.Second * 20)
+		}
+		time.Sleep(time.Minute * 2)
+		err := p.writePacket(client)
+		if err != nil {
+			fmt.Println("write packet err", err)
+		}
+		return
+	}()
 	for {
+
 		err := p.readPacket(client)
 		if err != nil {
 			fmt.Println(err)
@@ -36,7 +47,6 @@ func (p *protocolV1) IOLoop(conn net.Conn) error {
 }
 
 func (p *protocolV1) readPacket(client *ClientV1) error {
-	p.writePacket(client)
 	err := p.dec.Decode(p.reqPack)
 	if err != nil {
 		return err
@@ -48,12 +58,12 @@ func (p *protocolV1) readPacket(client *ClientV1) error {
 
 func (p *protocolV1) writePacket(client *ClientV1) error {
 	var packet = protocol.NewPacket(protocol.PacketVersionV1)
-	packet.Fill(protocol.PacketVersionV1, 1, []byte("1111111111"))
+	packet.Fill(protocol.PacketVersionV1, 1, []byte("1"))
 	err := p.enc.Encode(packet)
 	if err != nil {
 		fmt.Println(err)
 		return err
 	}
-	client.Writer.Flush()
+	return client.Writer.Flush()
 	return nil
 }

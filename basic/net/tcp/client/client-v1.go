@@ -6,6 +6,7 @@ import (
 	"net"
 	"practice/basic/net/tcp/protocol"
 	"sync"
+	"time"
 )
 
 type ClientStatus int32
@@ -136,6 +137,7 @@ func (c *ClientV1) writeLoop() {
 			if err != nil {
 				goto exit
 			}
+			c.conn.SetWriteDeadline(time.Now().Add(10 * time.Second))
 			//if len(c.writeChan) == 0 {
 			err = c.writer.Flush()
 			if err != nil {

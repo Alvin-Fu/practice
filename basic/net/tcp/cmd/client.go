@@ -8,7 +8,7 @@ import (
 
 func main() {
 	client := client2.NewClient()
-	err := client.Connect("tcp", "127.0.0.1:8080")
+	err := client.Connect("tcp", "192.168.81.15:8080")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -17,7 +17,7 @@ func main() {
 	for i := 0; i < 10; i++ {
 		data = append(data, '1')
 	}
-	for i := 0; i < 10; i++ {
+	for i := 0; i < 100; i++ {
 		client.Send(data)
 		time.Sleep(1 * time.Second)
 	}
