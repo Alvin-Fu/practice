@@ -3,11 +3,12 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/mreiferson/go-options"
 	"math/rand"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/mreiferson/go-options"
 )
 
 type Option struct {
@@ -33,12 +34,9 @@ func (mf *multiFields) String() string {
 }
 
 func (mf *multiFields) Set(fields string) error {
-	temp := strings.Split(fields, ",")
-	for _, s := range temp {
-		field := strings.Split(s, ":")
-		if len(field) == 2 {
-			(*mf)[field[0]] = field[1]
-		}
+	field := strings.Split(fields, "=")
+	if len(field) == 2 {
+		(*mf)[field[0]] = field[1]
 	}
 	return nil
 }
