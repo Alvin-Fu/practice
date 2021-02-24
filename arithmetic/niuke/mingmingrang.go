@@ -8,8 +8,6 @@ import (
 )
 
 func main() {
-	reader := bufio.NewReader(os.Stdin)
-	s, _ := reader.ReadLine()
 	var nums = make([]int, 0)
 	reader := bufio.NewScanner(os.Stdin)
 	for reader.Scan() {

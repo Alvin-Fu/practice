@@ -15,7 +15,6 @@ type Srange struct {
 }
 
 func main() {
-	var nums = make([]int, 0)
 	reader := bufio.NewScanner(os.Stdin)
 	reader.Text()
 	tmp := make(map[int]int)
