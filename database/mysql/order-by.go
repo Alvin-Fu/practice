@@ -1,11 +1,9 @@
-package main
+package operate
 
 import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
-	"practice/lib/mysql"
 )
 
 type Student struct {
@@ -15,39 +13,14 @@ type Student struct {
 	Score   int64 `json:"score" db:"score"`
 }
 
-func main() {
-	log.SetFlags(log.Lshortfile | log.LstdFlags)
-	conf := &mysql.MysqlConf{
-		Host:     "192.168.200.144",
-		Port:     "3388",
-		User:     "root",
-		Password: "public",
-		BaseName: "fuli",
-		IdleTime: 180,
-	}
-	svr, err := mysql.NewMysqlSever(conf)
-	if err != nil {
-		os.Exit(1)
-	}
-	svr.Breath(conf)
-	db := svr.GetMysqlDb()
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
-	getAll(db)
-	//insert(db)
-}
-
-func insert(db *sql.DB) {
+func Insert(db *sql.DB) {
 	for i := 1000; i < 1500; i++ {
 		db.Exec(fmt.Sprintf("INSERT INTO `fuli`.`student`(`uid`, `class_id`, `score`) "+
 			"VALUES (%d, %d, %d)", i, i%5, i%100))
 	}
 }
 
-func getAll(db *sql.DB) {
+func OrderBy(db *sql.DB) {
 	row, err := db.Query(fmt.Sprintf("SELECT * FROM `fuli`.`student` order by class_id asc, score desc"))
 	if err != nil {
 		log.Fatal(err)
