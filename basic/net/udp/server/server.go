@@ -29,7 +29,7 @@ func NewServerV1(addr string) *ServerV1 {
 
 func (s *ServerV1) Start() {
 	pack := protocol.NewPacket(protocol.PacketVersionV1)
-	data := make([]byte, 65535)
+	data := make([]byte, 100000)
 	wg := util.WaitGroupWrapper{}
 	for {
 		_, _, err := s.conn.ReadFromUDP(data)
