@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"sort"
 )
 
 func main() {
@@ -52,28 +51,28 @@ func findWay(lenth, stepL, stepR int, stone []int) int {
 	return ans
 }
 
-func findWay2(lenth, stepL, stepR int, stone []int) int {
-	ans := 0
-	if stepL == stepR {
-		for _, s := range stone {
-			if s%stepR == 0 {
-				ans++
-			}
-		}
-		return ans
-	}
-	sort.Slice(stone, func(i, j int) bool {
-		return stone[i] < stone[j]
-	})
-	que := make([]int, 0)
-	for i := 0; i < stepR; i ++{
-	    que = append(que, 0)
-    }
-	stepTotal, stepStone := 0, -1
-	for {
-	    if stepTotal - stepR >= 
-    }
-}
+//func findWay2(lenth, stepL, stepR int, stone []int) int {
+//	ans := 0
+//	if stepL == stepR {
+//		for _, s := range stone {
+//			if s%stepR == 0 {
+//				ans++
+//			}
+//		}
+//		return ans
+//	}
+//	sort.Slice(stone, func(i, j int) bool {
+//		return stone[i] < stone[j]
+//	})
+//	que := make([]int, 0)
+//	for i := 0; i < stepR; i ++{
+//	    que = append(que, 0)
+//    }
+//	stepTotal, stepStone := 0, -1
+//	for {
+//	    if stepTotal - stepR >=
+//    }
+//}
 
 func min(a, b int) int {
 	if a > b {
