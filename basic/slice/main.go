@@ -7,11 +7,13 @@ import (
 )
 
 func main() {
+	arr := []int{2: 1, 4: 4}
+	fmt.Println(arr, cap(arr))
 	//arr := []int{1, 2, 3}
 	//rue := copy_append.Copy(arr)
 	//rue[0] = 10
 	//fmt.Println(arr, rue)
-	app()
+	//app()
 }
 func app() {
 	printData := func(wg *sync.WaitGroup, data []byte) {
