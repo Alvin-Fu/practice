@@ -22,8 +22,9 @@ func (m *MaxHeap) Add(n int) {
 	if m.size > len(m.heap) {
 		m.heap = append(m.heap, n)
 		m.Update(len(m.heap) - 1)
-	} else if n < m.heap[len(m.heap)-1] {
-
+	} else if n < m.heap[0] {
+		m.heap[0] = n
+		m.Update(0)
 	}
 }
 
