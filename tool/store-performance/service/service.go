@@ -13,9 +13,8 @@ func NewStoreService() *StoreService {
 	return &StoreService{}
 }
 
-func (s *StoreService) GetStorePerformance(data []byte) ([]byte, error) {
-	performance := &model.Performance{}
-	json.Unmarshal(data, performance)
+func (s *StoreService) GetStorePerformance(performance *model.Performance) ([]byte, error) {
+
 	rue := &model.StoreRue{
 		UnitPrice:      s.calculateUnitPrice(performance.CurrentTurnover, performance.Number),
 		Completion:     s.calculateCompletion(performance.CurrentTurnover, performance.TargetTurnover),
