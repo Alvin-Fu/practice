@@ -60,8 +60,18 @@ func (h *HTTPHandlerV1) SetStore(w http.ResponseWriter, r *http.Request) {
 	}
 
 	number, _ := strconv.Atoi(r.FormValue("Number"))
+	currentTurnover, _ := strconv.ParseFloat(r.FormValue("CurrentTurnover"), 64)
+	targetTurnover, _ := strconv.ParseFloat(r.FormValue("TargetTurnover"), 64)
+	lastTurnover, _ := strconv.ParseFloat(r.FormValue("LastTurnover"), 64)
+	lastYearCurrentTurnover, _ := strconv.ParseFloat(r.FormValue("LastYearCurrentTurnover"), 64)
 
-	strconv.ParseFloat(r.FormValue("CurrentTurnover"), 64)
-	pr := &model.Performance{}
-	io.WriteString(w, "日志设置成功")
+	pr := &model.Performance{
+		Number:                  number,
+		CurrentTurnover:         currentTurnover,
+		TargetTurnover:          targetTurnover,
+		LastTurnover:            lastTurnover,
+		LastYearCurrentTurnover: lastYearCurrentTurnover,
+	}
+	data, _ := h.storeService.GetStorePerformance(pr)
+	io.WriteString(w, "计算成功: "+string(data))
 }
