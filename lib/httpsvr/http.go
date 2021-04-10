@@ -1,16 +1,16 @@
 package http
 
 import (
-	"byrpc/sapi/putil/log"
 	goctx "context"
-	"domino/lib/util"
 	"encoding/json"
 	"fmt"
-	"github.com/gorilla/mux"
 	"net"
 	"net/http"
 	"net/http/pprof"
+	"practice/lib/util"
 	"strings"
+
+	"github.com/gorilla/mux"
 )
 
 // HTTPServer is a instance of admin service.
@@ -24,7 +24,7 @@ type HTTPServer struct {
 
 // Start use to start http server.
 func (s *HTTPServer) Start(exitChan <-chan struct{}) error {
-	plog.Debugf("http server start")
+	fmt.Println("http server start")
 	s.server = &http.Server{Handler: removeTrailingSlash("/debug/pprof/", s.router)}
 	s.server.Serve(s.listener)
 
@@ -36,7 +36,7 @@ func (s *HTTPServer) Start(exitChan <-chan struct{}) error {
 		}
 	}
 exit:
-	plog.Warnf("http svr stop")
+	fmt.Printf("http svr stop\n")
 	s.Stop()
 	return nil
 }
@@ -45,10 +45,10 @@ exit:
 func (s *HTTPServer) Stop() error {
 	err := s.server.Shutdown(goctx.TODO())
 	if err != nil {
-		plog.Fatalf("http server shutdown fail: %s", err)
+		fmt.Printf("http server shutdown fail: %s\n", err)
 	}
 	s.waitGroup.Wait()
-	plog.Debugf("http server exit")
+	fmt.Println("http server exit")
 	return err
 }
 
@@ -101,7 +101,7 @@ func Response(w http.ResponseWriter, statusCode int, errmsg string, respJSON []b
 func NewHTTPSvr(listener net.Listener) *HTTPServer {
 	svr := &HTTPServer{listener: listener, router: mux.NewRouter()}
 	if err := svr.regRouter(); err != nil {
-		plog.Fatalf("http server register router fail: %s", err)
+		fmt.Printf("http server register router fail: %s\n", err)
 		return nil
 	}
 	return svr
