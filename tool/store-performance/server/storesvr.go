@@ -1,7 +1,7 @@
 package server
 
 import (
-	"byrpc/sapi/putil/log"
+	"fmt"
 	"net"
 	"practice/lib/util"
 	"practice/tool/store-performance/conf"
@@ -40,7 +40,7 @@ func (s *StoreSvr) Main() error {
 	if opts.HTTPAddr != "" {
 		httpListener, err := net.Listen("tcp", s.getOpts().HTTPAddr)
 		if err != nil {
-			plog.Fatalf("listen (%s) failed - %s", s.getOpts().HTTPAddr, err)
+			fmt.Printf("listen (%s) failed - %s\n", s.getOpts().HTTPAddr, err)
 			return err
 		}
 		httpServer := http.NewHTTPSvr(httpListener, s.storeService)

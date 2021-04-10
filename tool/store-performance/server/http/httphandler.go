@@ -1,12 +1,12 @@
 package http
 
 import (
-	myhttp "domino/lib/httpsvr"
 	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
+	myhttp "practice/lib/httpsvr"
 	"practice/tool/store-performance/model"
 	"practice/tool/store-performance/service"
 	"strconv"
