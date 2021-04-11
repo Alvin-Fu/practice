@@ -4,21 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>我利用vscode创建的第一个页面</title>
+    <title>每月业绩</title>
 </head>
+<style>
+    body {
+        font: 16px/28px 'Microsoft YaHei';
+    }
+    h1 {
+        /* 文字不加粗 */
+        font-weight: 400;
+        /* 让h1里面的文字水平居中对齐 */
+        text-align: center;
+    }
+    a {
+        text-decoration: none;
+    }
+    .gray {
+        color: #CC00CC;
+        font-size: 12px;
+        text-align: center;
+    }
+    .search {
+        color: #CC00CC;
+        /* #666666     #666
+        #ff00ff    #f0f */
+        width: 170px;
+    }
+    .btn {
+        font-weight: 700;
+    }
+    p {
+        /* 首行缩进2个字的距离 */
+        text-indent: 2em;
+    }
+    .pic {
+        /* 想要图片居中对齐,则是让它的父亲 p标签添加 水平居中的代码 */
+        text-align: center;
+    }
+    .footer {
+        color: #CC00CC;
+        font-size: 12px;
+    }
+    div {
+        width: 500px;
+        height: 500px;
+        background-color: pink;
+        /* 不要落下 url()
+        https://img95.699pic.com/photo/50046/5562.jpg_wh300.jpg
+        http://img02.tooopen.com/20140617/sy_63290734576.jpg
+        https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMPRUoTlt993sdBvEB_vFP2dCBBo9mq7RX3w&usqp=CAU
+        https://lh3.googleusercontent.com/proxy/fglHt0-QtWhVcEw9xIGD1TE33-BewaouNX7bhfOSAODh_Bc0rP_FqL_noeufCUzlaxQ3-qm7yDQP2TzssT671GsZJWj3UL5z_V79BEfxvU9FhtEJ93rg
+        */
+        background-image: url("http://img.yao51.com/jiankangtuku/hcarswax.jpeg");
+        /* 1.背景图片不平铺 */
+        /* background-repeat: no-repeat; */
+        /* 2.默认的情况下,背景图片是平铺的 */
+        /* background-repeat: repeat; */
+        /* 3. 沿着x轴平铺 */
+        /* background-repeat: repeat-x; */
+        /* 4. 沿着Y轴平铺 */
+        background-repeat: repeat-y;
+        /* 页面元素既可以添加背景颜色也可以添加背景图片 只不过背景图片会压住背景颜色 */
+    }
+    /* 1. 把a转换为块级元素 */
+    ak {
+        display: block;
+        width: 40px;
+        height: 40px;
+        background-color: #ff6700;
+        font-size: 14px;
+        color: #fff;
+        text-decoration: none;
+        text-indent: 2em;
+        line-height: 40px;
+    }
 
+    /* 2 鼠标经过链接变换背景颜色 */
+    ak:hover {
+        background-color: #CC00CC;
+    }
+</style>
 <body>
+<div class="pic">
+<h1> 每月业绩</h1>
+
     <form action='/v1/store' method="post" enctype="multipart/form-data">
         <!-- text 文本框 用户可以里面输入任何文字 -->
-        本月业绩:       <input type="text" name="CurrentTurnover" > <br>
+        <p class="gray">  <a href="#"> </a>
+            本月业绩 :       <input type="text" name="CurrentTurnover" > <br>
         本月目标:       <input type="text" name="TargetTurnover" > <br>
         本月单数:       <input type="text" name="Number" > <br>
         上月业绩:       <input type="text" name="LastTurnover" > <br>
-        去年本月业绩:    <input type="text" name="LastYearCurrentTurnover" > <br>
-        <!-- 点击了提交按钮,可以把 表单域 form 里面的表单元素 里面的值 提交给后台服务器 -->
-        <label><input type="submit" value="提交"/></label>
-    </form>
-    <p><img src="https://img95.699pic.com/photo/50046/5562.jpg_wh300.jpg" alt="美图" title="我是美景" width="500" />
+        去年本月业绩:    <input type="text" name="LastYearCurrentTurnover" ><br>
 
+        <!-- 点击了提交按钮,可以把 表单域 form 里面的表单元素 里面的值 提交给后台服务器 -->
+            <label><input type="submit" value="提交"/></label>
+    </form>
+    <p >
+        每单价格:  {{.UnitPrice}} <br>
+        同比: {{.MonthOverMonth}} <br>
+        环比:{{.MonthOnMonth}} <br>
+        完成率:  {{.Completion}}<br>
+        去年同比: {{.YearOverYear}} <br>
+    </p>
+
+</div>
+<p class="pic">
+    <img src="https://img95.699pic.com/photo/50046/5562.jpg_wh300.jpg" alt="美图" title="我是美景" width="1000" />
+</p>
 </body>
 </html>

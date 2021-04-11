@@ -37,7 +37,7 @@ func (h *HTTPServer) regRouter() error {
 	router := h.svr.Router()
 	sr := router.PathPrefix("/v1/").Subrouter()
 	handler := h.handler.(*HTTPHandlerV1)
-	sr.HandleFunc("/store")
+	//sr.HandleFunc("/store")
 	sr.HandleFunc("/store", handler.SetStoreHtml)
 	sr.HandleFunc("/store/{req:[\\w-]*}", handler.SetStorePerformance).Methods("PUT")
 	return nil

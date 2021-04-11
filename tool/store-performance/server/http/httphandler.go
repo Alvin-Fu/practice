@@ -1,12 +1,10 @@
 package http
 
 import (
-	"encoding/json"
-	"fmt"
+	"html/template"
 	"io"
 	"io/ioutil"
 	"net/http"
-	myhttp "practice/lib/httpsvr"
 	"practice/tool/store-performance/model"
 	"practice/tool/store-performance/service"
 	"strconv"
@@ -19,25 +17,25 @@ type HTTPHandlerV1 struct {
 func (h *HTTPHandlerV1) GetPerformance(w http.ResponseWriter, r *http.Request) {}
 
 func (h *HTTPHandlerV1) SetStorePerformance(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("jhsadfsaldk")
-	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 2048))
-	if err != nil {
-		myhttp.Response(w, http.StatusBadRequest, fmt.Sprintf("read put data fail: %s", err), []byte{})
-		return
-	}
-	if len(body) == 0 {
-		myhttp.Response(w, http.StatusBadRequest, "invalid empty body", []byte{})
-		return
-	}
-	performance := &model.Performance{}
-	json.Unmarshal(body, performance)
-	data, err := h.storeService.GetStorePerformance(performance)
-	if err != nil {
-		myhttp.Response(w, http.StatusBadRequest, "fail", []byte(err.Error()))
-		return
-	}
-	myhttp.Response(w, http.StatusOK, "ok", data)
-	return
+	//fmt.Println("jhsadfsaldk")
+	//body, err := ioutil.ReadAll(io.LimitReader(r.Body, 2048))
+	//if err != nil {
+	//	myhttp.Response(w, http.StatusBadRequest, fmt.Sprintf("read put data fail: %s", err), []byte{})
+	//	return
+	//}
+	//if len(body) == 0 {
+	//	myhttp.Response(w, http.StatusBadRequest, "invalid empty body", []byte{})
+	//	return
+	//}
+	//performance := &model.Performance{}
+	//json.Unmarshal(body, performance)
+	//data, err := h.storeService.GetStorePerformance(performance)
+	//if err != nil {
+	//	myhttp.Response(w, http.StatusBadRequest, "fail", []byte(err.Error()))
+	//	return
+	//}
+	//myhttp.Response(w, http.StatusOK, "ok", data)
+	//return
 }
 
 func (h *HTTPHandlerV1) SetStore(w http.ResponseWriter, r *http.Request) {
@@ -72,8 +70,8 @@ func (h *HTTPHandlerV1) SetStore(w http.ResponseWriter, r *http.Request) {
 		LastTurnover:            lastTurnover,
 		LastYearCurrentTurnover: lastYearCurrentTurnover,
 	}
-	data, _ := h.storeService.GetStorePerformance(pr)
-	io.WriteString(w, "计算成功: "+string(data))
+	h.storeService.GetStorePerformance(pr)
+	//io.WriteString(w, "计算成功: "+string(data))
 }
 
 func (h *HTTPHandlerV1) SetStoreHtml(w http.ResponseWriter, r *http.Request) {
@@ -95,6 +93,9 @@ func (h *HTTPHandlerV1) SetStoreHtml(w http.ResponseWriter, r *http.Request) {
 		LastTurnover:            lastTurnover,
 		LastYearCurrentTurnover: lastYearCurrentTurnover,
 	}
-	data, _ := h.storeService.GetStorePerformance(pr)
-	io.WriteString(w, "计算成功: "+string(data))
+	rue := h.storeService.GetStorePerformance(pr)
+	te := template.Must(template.ParseFiles("../static/store.html"))
+	te.Execute(w, rue)
+
+	//io.WriteString(w, "计算成功: "+string(data))
 }
