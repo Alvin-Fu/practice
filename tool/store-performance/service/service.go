@@ -2,7 +2,6 @@ package service
 
 import (
 	"encoding/json"
-	"fmt"
 	"practice/tool/store-performance/model"
 )
 
@@ -21,7 +20,7 @@ func (s *StoreService) GetStorePerformance(performance *model.Performance) ([]by
 		MonthOnMonth:   s.calculateHuanBi(performance.CurrentTurnover, performance.LastTurnover),
 		MonthOverMonth: s.calculateTongBi(performance.CurrentTurnover, performance.LastYearCurrentTurnover),
 	}
-	fmt.Printf("%#v\n", rue)
+
 	return json.Marshal(rue)
 }
 

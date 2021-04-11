@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我利用vscode创建的第一个页面</title>
+</head>
+
+<body>
+    <form action='/v1/store' method="post" enctype="multipart/form-data">
+        <!-- text 文本框 用户可以里面输入任何文字 -->
+        本月业绩:       <input type="text" name="CurrentTurnover" > <br>
+        本月目标:       <input type="text" name="TargetTurnover" > <br>
+        本月单数:       <input type="text" name="Number" > <br>
+        上月业绩:       <input type="text" name="LastTurnover" > <br>
+        去年本月业绩:    <input type="text" name="LastYearCurrentTurnover" > <br>
+        <!-- 点击了提交按钮,可以把 表单域 form 里面的表单元素 里面的值 提交给后台服务器 -->
+        <label><input type="submit" value="提交"/></label>
+    </form>
+    <p><img src="https://img95.699pic.com/photo/50046/5562.jpg_wh300.jpg" alt="美图" title="我是美景" width="500" />
+
+</body>
+</html>

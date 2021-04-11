@@ -2,7 +2,7 @@ package http
 
 import (
 	"net"
-	"practice/lib/httpsvr"
+	http "practice/lib/httpsvr"
 	"practice/tool/store-performance/service"
 )
 
@@ -37,7 +37,8 @@ func (h *HTTPServer) regRouter() error {
 	router := h.svr.Router()
 	sr := router.PathPrefix("/v1/").Subrouter()
 	handler := h.handler.(*HTTPHandlerV1)
-	sr.HandleFunc("/store", handler.SetStore)
+	sr.HandleFunc("/store")
+	sr.HandleFunc("/store", handler.SetStoreHtml)
 	sr.HandleFunc("/store/{req:[\\w-]*}", handler.SetStorePerformance).Methods("PUT")
 	return nil
 }

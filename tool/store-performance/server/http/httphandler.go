@@ -66,7 +66,30 @@ func (h *HTTPHandlerV1) SetStore(w http.ResponseWriter, r *http.Request) {
 	lastYearCurrentTurnover, _ := strconv.ParseFloat(r.FormValue("LastYearCurrentTurnover"), 64)
 
 	pr := &model.Performance{
-		Number:                  number,
+		Number:                  int64(number),
+		CurrentTurnover:         currentTurnover,
+		TargetTurnover:          targetTurnover,
+		LastTurnover:            lastTurnover,
+		LastYearCurrentTurnover: lastYearCurrentTurnover,
+	}
+	data, _ := h.storeService.GetStorePerformance(pr)
+	io.WriteString(w, "计算成功: "+string(data))
+}
+
+func (h *HTTPHandlerV1) SetStoreHtml(w http.ResponseWriter, r *http.Request) {
+	htmlData, _ := ioutil.ReadFile("../static/store.html")
+	if r.Method == "GET" {
+		io.WriteString(w, string(htmlData))
+		return
+	}
+	number, _ := strconv.Atoi(r.FormValue("Number"))
+	currentTurnover, _ := strconv.ParseFloat(r.FormValue("CurrentTurnover"), 64)
+	targetTurnover, _ := strconv.ParseFloat(r.FormValue("TargetTurnover"), 64)
+	lastTurnover, _ := strconv.ParseFloat(r.FormValue("LastTurnover"), 64)
+	lastYearCurrentTurnover, _ := strconv.ParseFloat(r.FormValue("LastYearCurrentTurnover"), 64)
+
+	pr := &model.Performance{
+		Number:                  int64(number),
 		CurrentTurnover:         currentTurnover,
 		TargetTurnover:          targetTurnover,
 		LastTurnover:            lastTurnover,

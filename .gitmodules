@@ -118,3 +118,6 @@
 [submodule "vendor/github.com/alibaba/sentinel-golang"]
 	path = vendor/github.com/alibaba/sentinel-golang
 	url = https://github.com/alibaba/sentinel-golang.git
+[submodule "vendor/github.com/mreiferson/go-options"]
+	path = vendor/github.com/mreiferson/go-options
+	url = https://github.com/mreiferson/go-options.git
