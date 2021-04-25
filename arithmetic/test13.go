@@ -4,6 +4,11 @@ import (
 	"fmt"
 )
 
+/*
+给定一个单向链表，节点数据结构如下，除了包含一个next指针，还有一个rand指针，
+随机指向链表中的某一元素，或者为空指针。实现一个函数，深复制这个链表。
+*/
+
 type Node struct {
 	Val  int
 	next *Node
