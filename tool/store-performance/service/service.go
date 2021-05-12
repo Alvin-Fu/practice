@@ -17,10 +17,15 @@ func NewStoreService() *StoreService {
 
 func (s *StoreService) GetStorePerformance(performance *model.Performance) *model.StoreRue {
 	return &model.StoreRue{
-		UnitPrice:      s.calculateUnitPrice(performance.CurrentTurnover, performance.Number),
-		Completion:     s.calculateCompletion(performance.CurrentTurnover, performance.TargetTurnover),
-		MonthOnMonth:   s.calculateHuanBi(performance.CurrentTurnover, performance.LastTurnover),
-		MonthOverMonth: s.calculateTongBi(performance.CurrentTurnover, performance.LastYearCurrentTurnover),
+		UnitPrice:    s.calculateUnitPrice(performance.CurrentTurnover, performance.Number),
+		Completion:   s.calculateCompletion(performance.CurrentTurnover, performance.TargetTurnover),
+		MonthOnMonth: s.calculateHuanBi(performance.CurrentTurnover, performance.LastTurnover),
+		MonthOverMonth: s.calculateTongBi(performance.CurrentTurnover,
+			performance.LastYearCurrentTurnover),
+		TargetTurnover:          performance.TargetTurnover,
+		CurrentTurnover:         performance.CurrentTurnover,
+		LastTurnover:            performance.LastTurnover,
+		LastYearCurrentTurnover: performance.LastYearCurrentTurnover,
 	}
 
 }
