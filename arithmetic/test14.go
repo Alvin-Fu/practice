@@ -1,6 +1,7 @@
 package main
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import "golang.org/x/tools/go/ssa/interp/testdata/src/fmt"
 
 type TreeNode struct {
@@ -29,6 +30,8 @@ func findTen(root *TreeNode) {
 			que = append(que, tmp.right)
 		}
 =======
+=======
+>>>>>>> 41655470a8bcee9960daa4f50479fc58afd85bf3
 import (
 	"fmt"
 	"practice/arithmetic/tree/binary-tree/model"
@@ -76,6 +79,9 @@ func inorderTraversal2(root *model.TreeNode) {
 		rue = append(rue, tmp.Val)
 		stack = stack[:len(stack)-1]
 		tmp = tmp.Right
+<<<<<<< HEAD
+>>>>>>> 41655470a8bcee9960daa4f50479fc58afd85bf3
+=======
 >>>>>>> 41655470a8bcee9960daa4f50479fc58afd85bf3
 	}
 	fmt.Println(rue)
