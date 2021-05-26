@@ -40,5 +40,6 @@ func (h *HTTPServer) regRouter() error {
 	//sr.HandleFunc("/store")
 	sr.HandleFunc("/store", handler.SetStoreHtml)
 	sr.HandleFunc("/store/{req:[\\w-]*}", handler.SetStorePerformance).Methods("PUT")
+	sr.HandleFunc("/sign", handler.GetUserName)
 	return nil
 }

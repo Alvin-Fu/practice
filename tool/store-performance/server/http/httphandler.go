@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
+	myhttp "practice/lib/httpsvr"
 	"practice/tool/store-performance/model"
 	"practice/tool/store-performance/service"
 	"strconv"
@@ -98,4 +99,8 @@ func (h *HTTPHandlerV1) SetStoreHtml(w http.ResponseWriter, r *http.Request) {
 	te.Execute(w, rue)
 
 	//io.WriteString(w, "计算成功: "+string(data))
+}
+
+func (h *HTTPHandlerV1) GetUserName(w http.ResponseWriter, r http.Request) {
+	myhttp.Response(w, http.StatusOK, "ok", []byte(h.storeService.GetOneStudentName()))
 }
