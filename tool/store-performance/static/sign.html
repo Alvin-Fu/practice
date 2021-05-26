@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>点名</title>
+</head>
+
+<style>
+    p {
+        /* 首行缩进2个字的距离 */
+        text-indent: 2em;
+        font-size: 30px;
+    }
+    div {
+        width: 500px;
+        height: 300px;
+        background-color: pink;
+        /* 不要落下 url()
+        https://img95.699pic.com/photo/50046/5562.jpg_wh300.jpg
+        http://img02.tooopen.com/20140617/sy_63290734576.jpg
+        https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMPRUoTlt993sdBvEB_vFP2dCBBo9mq7RX3w&usqp=CAU
+        https://lh3.googleusercontent.com/proxy/fglHt0-QtWhVcEw9xIGD1TE33-BewaouNX7bhfOSAODh_Bc0rP_FqL_noeufCUzlaxQ3-qm7yDQP2TzssT671GsZJWj3UL5z_V79BEfxvU9FhtEJ93rg
+        */
+        /*background-image: url("https://uploadfile.huiyi8.com/2014/1013/20141013053830627.jpg");*/
+        /* 1.背景图片不平铺 */
+        /* background-repeat: no-repeat; */
+        /* 2.默认的情况下,背景图片是平铺的 */
+        /* background-repeat: repeat; */
+        /* 3. 沿着x轴平铺 */
+        /* background-repeat: repeat-x; */
+        /* 4. 沿着Y轴平铺 */
+        background-repeat: repeat-y;
+        /* 页面元素既可以添加背景颜色也可以添加背景图片 只不过背景图片会压住背景颜色 */
+    }
+</style>
+
+<body>
+<div class="pic">
+    <p>
+        名字: {{.UserName}} <br>
+    </p>
+</div>
+</body>
+</html>

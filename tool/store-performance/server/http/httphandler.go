@@ -5,7 +5,8 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	myhttp "practice/lib/httpsvr"
+
+	//myhttp "practice/lib/httpsvr"
 	"practice/tool/store-performance/model"
 	"practice/tool/store-performance/service"
 	"strconv"
@@ -102,5 +103,13 @@ func (h *HTTPHandlerV1) SetStoreHtml(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *HTTPHandlerV1) GetUserName(w http.ResponseWriter, r *http.Request) {
-	myhttp.Response(w, http.StatusOK, "ok", []byte(h.storeService.GetUserName()))
+	//myhttp.Response(w, http.StatusOK, "ok", []byte(h.storeService.GetUserName()))
+	htmlData, _ := ioutil.ReadFile("../static/sign.html")
+	if r.Method == "GET" {
+		io.WriteString(w, string(htmlData))
+		return
+	}
+	rue := h.storeService.GetUserName()
+	te := template.Must(template.ParseFiles("../static/sign.html"))
+	te.Execute(w, rue)
 }

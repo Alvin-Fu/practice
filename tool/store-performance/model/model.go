@@ -22,3 +22,7 @@ type StoreRue struct {
 	LastYearCurrentTurnover float64 `json:"last_year_current_turnover"` // 去年同月
 	Number                  int64   `json:"number"`                     // 单数
 }
+
+type SignRue struct {
+	UserName string `json:"user_name"`
+}
