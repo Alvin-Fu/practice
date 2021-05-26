@@ -17,7 +17,7 @@ func NewStoreService() *StoreService {
 	return &StoreService{}
 }
 
-func (s *StoreService) GetUserName() string {
+func (s *StoreService) GetUserName() *model.SignRue {
 	names := []string{
 		"赵领宇", "刘其美", "张子涵",
 		"赵格祥", "吴吕诺", "乔浩宇",
@@ -28,7 +28,9 @@ func (s *StoreService) GetUserName() string {
 	if err != nil {
 		fmt.Println(err)
 	}
-	return names[int(res.Int64())]
+	return &model.SignRue{
+		UserName: names[int(res.Int64())],
+	}
 }
 
 func (s *StoreService) GetStorePerformance(performance *model.Performance) *model.StoreRue {
