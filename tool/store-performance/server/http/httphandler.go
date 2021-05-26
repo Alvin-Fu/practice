@@ -102,5 +102,5 @@ func (h *HTTPHandlerV1) SetStoreHtml(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *HTTPHandlerV1) GetUserName(w http.ResponseWriter, r *http.Request) {
-	myhttp.Response(w, http.StatusOK, "ok", []byte(h.storeService.GetOneStudentName()))
+	myhttp.Response(w, http.StatusOK, "ok", []byte(h.storeService.GetUserName()))
 }
