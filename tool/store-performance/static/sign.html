@@ -38,6 +38,13 @@
 
 <body>
 <div class="pic">
+    <h1> 每月业绩</h1>
+
+    <form action='/v1/sign' method="post" enctype="multipart/form-data">
+        <!-- text 文本框 用户可以里面输入任何文字 -->
+            <!-- 点击了提交按钮,可以把 表单域 form 里面的表单元素 里面的值 提交给后台服务器 -->
+            <label><input type="submit" value="提交"/></label>
+    </form>
     <p>
         名字: {{.UserName}} <br>
     </p>
