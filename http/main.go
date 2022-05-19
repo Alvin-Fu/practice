@@ -2,9 +2,6 @@ package main
 
 import (
 	"flag"
-	beegoConfig "github.com/astaxie/beego/config"
-	"github.com/judwhite/go-svc/svc"
-	"github.com/mreiferson/go-options"
 	"log"
 	"net"
 	"os"
@@ -12,6 +9,10 @@ import (
 	options2 "practice/http/options"
 	"practice/http/svrmonitoring"
 	"practice/http/util"
+
+	beegoConfig "github.com/astaxie/beego/config"
+	"github.com/judwhite/go-svc"
+	"github.com/mreiferson/go-options"
 )
 
 type config map[string]interface{}
